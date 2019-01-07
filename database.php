@@ -32,13 +32,39 @@ function insertCardAfter(
         // insert the new card
         $checked = 0;
         $newCardIndex = $targetIndex + 1;
-        $sql=sprintf("INSERT into js_checklist_item(checklist_id, content, sn, checked) values('%d',%d,'%d','%d') ;",$boardId,$content,$newCardIndex,$checked);
+        $sql=sprintf("INSERT into js_checklist_item(checklist_id, content, sn, checked) values('%d',%s,'%d','%d') ;",$boardId,$content,$newCardIndex,$checked);
         $result = $conn->query($sql);
         if($result===True){
             debug_to_console("Succeeded to insert new card!");
         }
         else{
             debug_to_console("Faile to insert new card!");
+        }
+    
+}
+
+function createBoard(
+    $boardId,     //New board id 
+    $title,     // Title of the new board 
+    $finalIndex,  // Index of final object of the board array
+    $conn
+){
+    if($conn->connect_error) {
+        
+        debug_to_console("Connection failed: " . $conn->connect_error);
+        if(!is_null($conn)){
+            mysqli_close($conn);
+        }
+        return;
+    }
+        // insert the new board
+        $sql=sprintf("INSERT into js_checklist(id, title, sn) values('%d',%s,'%d') ;",$boardId,$title,$finalIndex);
+        $result = $conn->query($sql);
+        if($result===True){
+            debug_to_console("Succeeded to insert new board!");
+        }
+        else{
+            debug_to_console("Faile to insert new board!");
         }
     
 }
