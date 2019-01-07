@@ -314,7 +314,7 @@ var Board = (function(){
             else card_array.appendChild(newCard);
             
             tools.insertBefore(this.id, index, content, this.card_len++);
-        }
+        },
         
         addEmptyCard: function(){
             
