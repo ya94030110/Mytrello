@@ -36,7 +36,9 @@ var tools = (function(){
         },
         
         
-        addBoard: function(title){
+        addBoard: function(id, title){
+            tools.createBoard(id, title, board_array.length);
+            
             var trello = document.getElementById("trello");
             var newBoard = document.createElement("div");
             newBoard.setAttribute("class", "check-board");
@@ -101,10 +103,9 @@ var tools = (function(){
             board_array[index].addEmptyCard();
         },
 
-        createCard: function(content, id){
+        createCard: function(content){
             var newCard = document.createElement("div");
             newCard.setAttribute("class", "check-card");
-            newCard.setAttribute("id", id);
     
             var check_input = document.createElement("input");
             check_input.setAttribute("type", "checkbox");
@@ -190,6 +191,7 @@ var tools = (function(){
             var e = event || window.event;
             if(e.key == "Enter")
             {
+                var trello = document.getElementById("trello");
                 if(e.target.value == "") e.target.parentElement.remove();
                 else{
                     var cursorPos = Number(tools.getCursurPosition(e.target));
@@ -197,16 +199,15 @@ var tools = (function(){
                         reserve_str = e.target.value.slice(0, cursorPos);
                     
                     var target_index = Array.prototype.indexOf.call(e.target.parentElement.parentElement.children, e.target.parentElement);
-                    var newCard = tools.createCard(moved_str, ++max_id);
+                    var board_index = Array.prototype.indexOf.call(trello.children, e.target.parentElement.parentElement.parentElement);
                     
-                    if(target_index + 1 != e.target.parentElement.parentElement.children.length)
-                        e.target.parentElement.parentElement.insertBefore(newCard,  e.target.parentElement.parentElement.children[target_index + 1]);
-                    else e.target.parentElement.parentElement.appendChild(newCard);
+                    board_array[board_index].insertCardAfter(target_index, moved_str);
                     
                     e.target.value = reserve_str;
                     e.target.parentElement.parentElement.children[target_index + 1].children[1].value = moved_str;
                     
                     tools.setCursorPosition(e.target.parentElement.parentElement.children[target_index + 1].children[1], 0);
+                    tools.insertCardAfter()
                 }
             }
         },
@@ -291,7 +292,7 @@ var Board = (function(){
         this.id = ++max_id;
         this.index = board_array.length;
         this.card_len = 0;
-        tools.addBoard(this.title);
+        tools.addBoard(this.id, this.title);
     };
 
     Board.prototype = {
@@ -303,12 +304,21 @@ var Board = (function(){
             return title;
         },
         
+        insertCardAfter: function(index, content)
+        {
+            var card_array = document.getElementsByClassName("card-array")[this.index];
+            var newCard = tools.createCard(content);
+            
+            if(index + 1 != this.card_len)
+                card_array.insertBefore(newCard,  card_array.children[index + 1]);
+            else card_array.appendChild(newCard);
+            
+            tools.insertBefore(this.id, index, content, this.card_len++);
+        }
+        
         addEmptyCard: function(){
             
-            var card_array = document.getElementsByClassName("card-array")[this.index];
-            var newCard = tools.createCard("", ++max_id);
-            this.card_len++;
-            card_array.appendChild(newCard);
+            this.insertCardAfter(this.card_len-1, "");
         },
         
     }
