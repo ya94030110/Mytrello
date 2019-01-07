@@ -212,7 +212,6 @@ var tools = (function(){
                     e.target.parentElement.parentElement.children[target_index + 1].children[1].value = moved_str;
                     
                     tools.setCursorPosition(e.target.parentElement.parentElement.children[target_index + 1].children[1], 0);
-                    tools.insertCardAfter()
                 }
             }
         },
@@ -318,7 +317,7 @@ var Board = (function(){
                 card_array.insertBefore(newCard,  card_array.children[index + 1]);
             else card_array.appendChild(newCard);
             
-            tools.insertBefore(this.id, index, content, this.card_len++);
+            tools.insertCardAfter(this.id, index, content, this.card_len++);
         },
         
         addEmptyCard: function(){
