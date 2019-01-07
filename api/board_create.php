@@ -27,7 +27,6 @@ if(isset($_POST['boardid'], $_POST['title'], $_POST['board_len'])) {  //checking
     'success' => $success,
     'discription' => $discription
   ];
-  echo $ret;
   exit(json_encode($ret));
 }
 ?>
