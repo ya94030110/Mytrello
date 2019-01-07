@@ -10,7 +10,7 @@ if(isset($_POST['boardid'], $_POST['title'], $_POST['board_len'])) {  //checking
   $title = $_POST['title'];
   $board_len = $_POST['board_len'];
   $success = 0;
-  $result = insertVideoCaption(
+  $result = createBoard(
     $boardid,
     $title,
     $board_len,
