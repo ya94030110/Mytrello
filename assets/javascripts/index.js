@@ -18,9 +18,11 @@ var tools = (function(){
                     index: index,
                     content: content,
                     card_len: card_len
-                },
-                function(res){}
-            );
+                }
+            ).done(function(res){console.log(res)})
+             .fail(function(xhr, status, error) {
+                    alert(xhr);
+            });
         },
         
         createBoard: function(boardid, title, board_len)
@@ -30,9 +32,12 @@ var tools = (function(){
                     boardid: boardid,
                     title:title,
                     board_len: board_len
-                },
-                function(res){}
-            );
+                }
+            ).done(function(res){console.log(res)})
+             .fail(function(xhr, status, error) {
+                    alert(xhr);
+            });
+                
         },
         
         
