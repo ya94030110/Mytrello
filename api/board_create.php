@@ -18,12 +18,15 @@ if(isset($_POST['boardid'], $_POST['title'], $_POST['board_len'])) {  //checking
   );
   if($result === True) {
     $success = 1;
+    $discription = 'ok';
   } 
   else {
     $success = 0;
+    $discription = mysqli_error($conn);
   }
   $ret = [
     'success' => $success,
+    'discription' => $discription
   ];
   
   exit(json_encode($ret));
