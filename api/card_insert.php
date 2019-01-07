@@ -11,7 +11,7 @@ if(isset($_POST['boardid'], $_POST['index'], $_POST['content'], $_POST['card_len
   $content = $_POST['content'];
   $card_len = $_POST['card_len'];
   $success = 0;
-  $result = insertVideoCaption(
+  $result = insertCardAfter(
     $boardid,
     $index,
     $content,
