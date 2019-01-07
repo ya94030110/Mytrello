@@ -21,7 +21,9 @@ var tools = (function(){
                 }
             ).done(function(res){console.log(res)})
              .fail(function(xhr, status, error) {
-                    alert(xhr);
+                    console.log(xhr);
+                    console.log(status);
+                    console.log(error);
             });
         },
         
@@ -35,7 +37,9 @@ var tools = (function(){
                 }
             ).done(function(res){console.log(res)})
              .fail(function(xhr, status, error) {
-                    alert(xhr);
+                    console.log(xhr);
+                    console.log(status);
+                    console.log(error);
             });
                 
         },
