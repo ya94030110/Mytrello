@@ -19,13 +19,12 @@ function insertCardAfter(
         }
         return;
     }
-        //move objects after target object to get a space for new card
-        moveRowsforInsert($boardId, $targetIndex, $finalIndex, $conn);
         
-        // insert the new card
         $checked = 0;
         $newCardIndex = $targetIndex + 1;
-        $sql=sprintf("INSERT into js_checklist_item(checklist_id, content, sn, checked) values('%d','%s','%d','%d') ;",$boardId,$content,$newCardIndex,$checked);
+        $sql=sprintf("UPDATE js_checklist_item SET sn=sn+1 WHERE sn>%d AND sn<%d AND checklist_id=%d;
+                      INSERT into js_checklist_item(checklist_id, content, sn, checked) values('%d','%s','%d','%d');",
+                      $targetIndex, $finalIndex, $boardId, $boardId, $content, $newCardIndex, $checked);
         $result = $conn->query($sql);
         if($result===True){
             debug_to_console("Succeeded to insert new card!");
@@ -36,30 +35,6 @@ function insertCardAfter(
     
 }
 
-function moveRowsforInsert(
-    $board_id,
-    $firstIndex,
-    $finalIndex,
-    $conn
-){
-    if($conn->connect_error) {
-        
-        debug_to_console("Connection failed: " . $conn->connect_error);
-        if(!is_null($conn)){
-            mysqli_close($conn);
-        }
-        return;
-    }
-    //move objects after target object to get a space for new card
-    $sql= sprintf("UPDATE js_checklist_item SET sn=sn+1 WHERE sn>%d AND sn<%d AND checklist_id=%d ;",$firstIndex, $finalIndex, $boardId); 
-    $result = $conn->query($sql);
-        
-    if($result!==True){
-        debug_to_console("Failed to move objects!");
-        return;
-    }
-    debug_to_console("Succeeded to move objects!");
-}
 
 function createBoard(
     $boardId,     //New board id 
