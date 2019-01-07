@@ -51,6 +51,7 @@ function moveRowsforInsert(
         return;
     }
     //move objects after target object to get a space for new card
+    $conn->query("SET SQL_SAFE_UPDATES=0");
     $sql= sprintf("UPDATE js_checklist_item SET sn=sn+1 WHERE sn>%d AND sn<%d AND checklist_id=%d",$firstIndex, $finalIndex, $boardId); 
     $result = $conn->query($sql);
         
@@ -59,6 +60,7 @@ function moveRowsforInsert(
         return;
     }
     debug_to_console("Succeeded to move objects!");
+    $conn->query("SET SQL_SAFE_UPDATES=1");
 }
 
 function createBoard(
