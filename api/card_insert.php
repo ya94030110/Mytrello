@@ -1,5 +1,4 @@
 <?php
-require_once "../utility.php";
 require_once "../database.php";
 if(isset($_POST['boardid'], $_POST['index'], $_POST['content'], $_POST['card_len'])) {  //checking the request
   // calling database.php function to establish the connection to MySQL server

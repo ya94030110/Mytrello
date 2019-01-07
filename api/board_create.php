@@ -1,5 +1,4 @@
 <?php
-require_once "../utility.php";
 require_once "../database.php";
 if(isset($_POST['boardid'], $_POST['title'], $_POST['board_len'])) {  //checking the request
   // calling database.php function to establish the connection to MySQL server
@@ -28,7 +27,7 @@ if(isset($_POST['boardid'], $_POST['title'], $_POST['board_len'])) {  //checking
     'success' => $success,
     'discription' => $discription
   ];
-  
+  echo $ret;
   exit(json_encode($ret));
 }
 ?>
