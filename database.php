@@ -52,7 +52,7 @@ function moveRowsforInsert(
     }
     //move objects after target object to get a space for new card
     $conn->query("SET SQL_SAFE_UPDATES=0");
-    $sql= sprintf("UPDATE js_checklist_item SET sn=sn+1 WHERE sn>%d AND sn<%d AND checklist_id=%d",$firstIndex, $finalIndex, $boardId); 
+    $sql= sprintf("UPDATE js_checklist_item SET sn=sn+1 WHERE sn>%d AND sn<%d AND checklist_id=%d ;",$firstIndex, $finalIndex, $boardId); 
     $result = $conn->query($sql);
         
     if($result!==True){
