@@ -23,7 +23,17 @@ var tools = (function(){
             );
         },
         
-        
+        createBoard: function(boardid, title, board_len)
+        {
+            $.post("./api/board_create.php",
+                {
+                    boardid: boardid,
+                    title:title,
+                    board_len: board_len
+                },
+                function(res){}
+            );
+        },
         
         
         addBoard: function(title){
