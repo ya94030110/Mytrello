@@ -22,7 +22,7 @@ function insertCardAfter(
         
         $checked = 0;
         $newCardIndex = $targetIndex + 1;
-        $sql=sprintf("UPDATE js_checklist_item SET sn=sn+1 WHERE sn>%d AND sn<%d AND checklist_id=%d;
+        $sql=sprintf("UPDATE js_checklist_item SET sn=sn+1 WHERE sn>'%d' AND sn<'%d' AND checklist_id='%d';
                       INSERT into js_checklist_item(checklist_id, content, sn, checked) values('%d','%s','%d','%d');",
                       $targetIndex, $finalIndex, $boardId, $boardId, $content, $newCardIndex, $checked);
         $result = $conn->query($sql);
