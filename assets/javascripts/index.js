@@ -49,7 +49,7 @@ var tools = (function(){
             tools.createBoard(id, title, board_array.length);
             
             var trello = document.getElementById("trello");
-            var newBoard = document.createElement("li");
+            var newBoard = document.createElement("div");
             newBoard.setAttribute("class", "check-board");
             
             var title_element = document.createElement("input");
@@ -59,7 +59,7 @@ var tools = (function(){
             tools.addListener(title_element, "focus", tools.edit_title);
             tools.addListener(title_element, "blur", tools.remove_title_saveButton);
             
-            var card_array = document.createElement("ul");
+            var card_array = document.createElement("div");
             card_array.setAttribute("class", "card-array");
     
             var addButton = document.createElement("button");
@@ -113,7 +113,7 @@ var tools = (function(){
         },
 
         createCard: function(content){
-            var newCard = document.createElement("li");
+            var newCard = document.createElement("div");
             newCard.setAttribute("class", "check-card");
     
             var check_input = document.createElement("input");
