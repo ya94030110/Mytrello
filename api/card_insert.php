@@ -30,6 +30,6 @@ if(isset($_POST['boardid'], $_POST['index'], $_POST['content'], $_POST['card_len
     'discription' => $discription
   ];
   
-  echo json_encode($ret);
+  exit(json_encode($ret));
 }
 ?>
