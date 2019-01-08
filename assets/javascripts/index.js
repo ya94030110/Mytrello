@@ -19,11 +19,9 @@ var tools = (function(){
                     content: content,
                     card_len: card_len
                 }
-            ).done(function(res){console.log(res)})
+            ).done(function(res){})
              .fail(function(xhr, status, error) {
-                    console.log(xhr);
-                    console.log(status);
-                    console.log(error);
+                    alert(status + ":" + error);
             });
         },
         
@@ -35,11 +33,9 @@ var tools = (function(){
                     title:title,
                     board_len: board_len
                 }
-            ).done(function(res){console.log("success: " + res)})
+            ).done(function(res){})
              .fail(function(xhr, status, error) {
-                    console.log(xhr);
-                    console.log(status);
-                    console.log(error);
+                    alert(status + ":" + error);
             });
                 
         },
@@ -108,7 +104,7 @@ var tools = (function(){
         addEmptyCard: function(event){
             var e = event || window.event;
             var index = Array.prototype.indexOf.call(e.target.parentElement.parentElement.children, e.target.parentElement);
-            console.log(index);
+            //console.log(index);
             board_array[index].addEmptyCard();
         },
 
