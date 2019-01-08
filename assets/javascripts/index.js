@@ -37,7 +37,7 @@ var tools = (function(){
                 }
             ).done(function(res){console.log("success: " + res)})
              .fail(function(xhr, status, error) {
-                    console.log(""xhr);
+                    console.log(xhr);
                     console.log(status);
                     console.log(error);
             });
