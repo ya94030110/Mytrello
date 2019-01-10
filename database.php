@@ -5,7 +5,7 @@ function connectOurtubeDatabase() {
 }
 
 function insertCardAfter(
-    $cardId,
+    $cardId,      // The card id
     $boardId,     //The board id 
     $targetIndex, //Index of target object that the new card insert after
     $content,     // Content of the new card 
