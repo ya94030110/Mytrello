@@ -66,7 +66,7 @@ var tools = (function(){
         
         updateTitle: function(boardid, title, edit_node)
         {
-            console.log(content);
+            console.log(title);
             $.post("./api/title_update.php",
                 {
                     boardid: boardid,
@@ -83,8 +83,8 @@ var tools = (function(){
                     return;
                 }
                 edit_content = title;
+                edit_node.value = title;
                 edit_node.parentElement.children[1].style.display = "none";
-                edit_node.blur();
             })
              .fail(function(xhr, status, error) {
                     alert(status + ":" + error);
@@ -93,13 +93,13 @@ var tools = (function(){
             });
         },
         
-        updateContent: function(boardid, content, index, edit_node)
+        updateContent: function(boardid, newcontent, index, edit_node)
         {
-            console.log("content");
+            console.log(newcontent);
             $.post("./api/content_update.php",
                 {
                     boardid: boardid,
-                    content: content,
+                    content: newcontent,
                     index: index
                 }
             ).done(function(res){
@@ -112,9 +112,9 @@ var tools = (function(){
                     edit_node.focus();
                     return;
                 }
-                edit_content = content;
+                edit_content = newcontent;
+                edit_node.value = newcontent;
                 edit_node.parentElement.children[3].style.display = "none";
-                edit_node.blur();
             })
              .fail(function(xhr, status, error) {
                     alert(status + ":" + error);
@@ -298,7 +298,7 @@ var tools = (function(){
             var card_index = Array.prototype.indexOf.call(e.target.parentElement.parentElement.children, e.target.parentElement);
             var board_index = Array.prototype.indexOf.call(trello.children, e.target.parentElement.parentElement.parentElement);
             var input_node = e.target.parentElement.children[1];
-            tools.updateContent(board_array[board_iddex].id, input_node.value, card_index, input_node);
+            tools.updateContent(board_array[board_index].id, input_node.value, card_index, input_node);
             e.target.style.display = "none";
         },
         
