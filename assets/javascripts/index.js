@@ -276,7 +276,6 @@ var tools = (function(){
                 
                 var board_index = Array.prototype.indexOf.call(trello.children, e.target.parentElement.parentElement.parentElement);
                 tools.updateContent(board_index, e.target.value, target_index, e.target);
-                e.target.blur();
                 board_array[board_index].addEmptyCard();
             }
         },
