@@ -268,7 +268,6 @@ var tools = (function(){
             var e = event || window.event;
             if(e.key == "Enter")
             {
-                e.target.blur();
                 var trello = document.getElementById("trello");
                     
                 var target_index = Array.prototype.indexOf.call(e.target.parentElement.parentElement.children, e.target.parentElement);
