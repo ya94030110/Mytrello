@@ -47,6 +47,7 @@ var tools = (function(){
                     board_len: board_len
                 }
             ).done(function(res){
+                console.log(res);
                 res = tools.json_preprocess(res);
                 response = JSON.parse(res);
                 console.log(response);
