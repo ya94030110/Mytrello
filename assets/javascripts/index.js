@@ -3,7 +3,9 @@ var board_array= [];
 var editted_title_element;
 var max_cardid = 0;
 
+
 $(document).ready(function(){
+    $( "#sortable" ).sortable();
     var add_checklist = document.getElementById("add-checklist");
     tools.addListener(add_checklist, "click", tools.addClicklist)
 })
@@ -63,6 +65,8 @@ var tools = (function(){
             
             var card_array = document.createElement("ul");
             card_array.setAttribute("class", "card-array ui-sortable");
+            card-array.setAttribute("id", "sortable");
+            $( "#sortable" ).sortable();
     
             var addButton = document.createElement("button");
             addButton.setAttribute("type", "button");
