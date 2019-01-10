@@ -28,7 +28,7 @@ var tools = (function(){
                 res = tools.json_preprocess(res);
                 response = JSON.parse(res);
                 console.log(response);
-                if(response['success'] == 0) return 0;
+                if(response['description'].length > 0) return 0;
                 max_cardid++;
                 return 1;
             })
@@ -47,10 +47,11 @@ var tools = (function(){
                     board_len: board_len
                 }
             ).done(function(res){
+                console.log(res);
                 res = tools.json_preprocess(res);
                 response = JSON.parse(res);
                 console.log(response);
-                if(response['success'] == 0) return;
+                if(response['description'].length > 0) return;
                 tools.addBoard(boardid, title);
             })
              .fail(function(xhr, status, error) {
