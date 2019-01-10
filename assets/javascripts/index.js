@@ -13,7 +13,7 @@ $(document).ready(function(){
 var tools = (function(){
     return{
         
-        insertCardAfter: function(boardid, index, content, card_len)
+        insertCardAfter: function(boardid, index, content, card_len, board_index)
         {
              $.post("./api/card_insert.php",
                 {
@@ -24,17 +24,14 @@ var tools = (function(){
                     card_len: card_len
                 }
             ).done(function(res){
-                console.log(res);
                 res = tools.json_preprocess(res);
                 response = JSON.parse(res);
-                console.log(response);
-                if(response['discription'].length > 0) return 0;
+                if(response['discription'].length > 0) return;
                 max_cardid++;
-                return 1;
+                board_array[board_index].insertCardAfter(index, content);
             })
              .fail(function(xhr, status, error) {
                     alert(status + ":" + error);
-                    return 0;
             });
         },
         
@@ -47,10 +44,8 @@ var tools = (function(){
                     board_len: board_len
                 }
             ).done(function(res){
-                console.log(res);
                 res = tools.json_preprocess(res);
                 response = JSON.parse(res);
-                console.log(response);
                 if(response['discription'].length > 0) return;
                 tools.addBoard(boardid, title);
             })
@@ -295,10 +290,13 @@ var Board = (function(){
             return title;
         },
         
+        insertCardAfter_ajax: function(index, content)
+        {
+            tools.insertCardAfter(this.id, index, content, this.card_len, this.index)
+        },
+        
         insertCardAfter: function(index, content)
         {
-            if(tools.insertCardAfter(this.id, index, content, this.card_len) == 0) return;
-
             var card_array = document.getElementsByClassName("card-array")[this.index];
             var newCard = tools.createCard(content);
             
@@ -306,8 +304,7 @@ var Board = (function(){
                 card_array.insertBefore(newCard,  card_array.children[index + 1]);
             else card_array.appendChild(newCard);
             this.card_len++;
-            
-        },
+        }
         
         addEmptyCard: function(){
             
