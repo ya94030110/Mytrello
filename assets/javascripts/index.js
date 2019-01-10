@@ -1,6 +1,7 @@
 var max_id = 0
 var board_array= [];
 var editted_title_element;
+var max_cardid = 0;
 
 $(document).ready(function(){
     var add_checklist = document.getElementById("add-checklist");
@@ -10,17 +11,21 @@ $(document).ready(function(){
 var tools = (function(){
     return{
         
-        insertCardAfter: function(boardid, index, content, card_len)
+        insertCardAfter: function(cardid, boardid, index, content, card_len)
         {
             console.log(boardid + " " + index + " " + card_len)
              $.post("./api/card_insert.php",
                 {
+                    cardid: max_cardid,
                     boardid: boardid,
                     index: index,
                     content: content,
                     card_len: card_len
                 }
-            ).done(function(res){return 1;})
+            ).done(function(res){
+                max_cardid++;
+                return 1;
+            })
              .fail(function(xhr, status, error) {
                     alert(status + ":" + error);
                     return 0;
