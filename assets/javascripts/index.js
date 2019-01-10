@@ -340,21 +340,6 @@ var tools = (function(){
             }
         },
         
-        setCursorPosition: function(node, pos) {
-            // Modern browsers
-            if (node.setSelectionRange) {
-                node.focus();
-                node.setSelectionRange(pos, pos);
-  
-            // IE8 and below
-            } else if (node.createTextRange) {
-                var range = node.createTextRange();
-                range.collapse(true);
-                range.moveEnd('character', pos);
-                range.moveStart('character', pos);
-                range.select();
-            }
-        },
         
         addListener: function(object, addEvent, handler)
         {
@@ -407,7 +392,6 @@ var Board = (function(){
                 card_array.insertBefore(newCard,  card_array.children[index + 1]);
             else card_array.appendChild(newCard);
             this.card_len++;
-            tools.setCursorPosition(card_array.children[index + 1], 0);
         },
         
         addEmptyCard: function(){
