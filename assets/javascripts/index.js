@@ -390,7 +390,7 @@ var Board = (function(){
             if(index + 1 != this.card_len)
                 card_array.insertBefore(newCard,  card_array.children[index + 1]);
             else card_array.appendChild(newCard);
-            newcard.focus();
+            newCard.focus();
             this.card_len++;
         },
         
