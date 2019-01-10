@@ -26,6 +26,7 @@ var tools = (function(){
             ).done(function(res){
                 console.log(res);
                 response = JSON.parse(res);
+                response = json_preprocess(response);
                 if(response['success'] == 0) return 0;
                 max_cardid++;
                 return 1;
@@ -44,7 +45,12 @@ var tools = (function(){
                     title:title,
                     board_len: board_len
                 }
-            ).done(function(res){tools.addBoard(boardid, title);})
+            ).done(function(res){
+                response = JSON.parse(res);
+                response = json_preprocess(response);
+                if(response['success'] == 0) return;
+                tools.addBoard(boardid, title);
+            })
              .fail(function(xhr, status, error) {
                     alert(status + ":" + error);
             });
@@ -239,6 +245,14 @@ var tools = (function(){
             board2.index = index1;
             array[index1] = obj2;
             array[index2] = obj1;
+        },
+        
+        json_preprocess: function(response)
+        {
+            for(i = 0; i < caption_response.length; i++)
+            {
+                if(caption_response[i] == "{") return caption_response.substring(i);
+            }
         },
         
         addListener: function(object, addEvent, handler)
