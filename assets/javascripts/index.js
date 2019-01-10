@@ -208,7 +208,7 @@ var tools = (function(){
                 if(target_index + 1 != e.target.parentElement.parentElement.children.length) return;
                 
                 var board_index = Array.prototype.indexOf.call(trello.children, e.target.parentElement.parentElement.parentElement);
-                board_array[board_index].insertCardAfter(target_index, moved_str);
+                board_array[board_index].addEmptyCard();
             }
         },
         
