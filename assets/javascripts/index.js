@@ -12,6 +12,7 @@ var tools = (function(){
         
         insertCardAfter: function(boardid, index, content, card_len)
         {
+            console.log(boardid + " " + index + " " + card_len)
              $.post("./api/card_insert.php",
                 {
                     boardid: boardid,
@@ -268,7 +269,6 @@ var Board = (function(){
         
         insertCardAfter: function(index, content)
         {
-            console.log(this.id + " " + index);
             if(tools.insertCardAfter(this.id, index, content, this.card_len) == 0) return;
 
             var card_array = document.getElementsByClassName("card-array")[this.index];
