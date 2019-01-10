@@ -65,7 +65,7 @@ var tools = (function(){
             
             var card_array = document.createElement("ul");
             card_array.setAttribute("class", "card-array ui-sortable");
-            card-array.setAttribute("id", "sortable");
+            card_array.setAttribute("id", "sortable");
             $( "#sortable" ).sortable();
     
             var addButton = document.createElement("button");
