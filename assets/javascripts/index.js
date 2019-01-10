@@ -2,12 +2,13 @@ var max_id = 0
 var board_array= [];
 var editted_title_element;
 var max_cardid = 0;
+var edit_content = 0;
 
 
 $(document).ready(function(){
     $( "#trello" ).sortable();
     var add_checklist = document.getElementById("add-checklist");
-    tools.addListener(add_checklist, "click", tools.addClicklist)
+    tools.addListener(add_checklist, "click", tools.addClicklist);
 })
 
 var tools = (function(){
@@ -63,6 +64,62 @@ var tools = (function(){
                 
         },
         
+        updateTitle: function(boardid, title, edit_node)
+        {
+            $.post("./api/title_update.php",
+                {
+                    boardid: boardid,
+                    title:title
+                }
+            ).done(function(res){
+                res = tools.json_preprocess(res);
+                response = JSON.parse(res);
+                if(response['discription'].length > 0)
+                {
+                    alert(response['discription']);
+                    edit_node.value = edit_content;
+                    edit_node.focus();
+                    return;
+                }
+                edit_content = title;
+                edit_node.parentElement.children[1].remove();
+                edit_node.blur();
+            })
+             .fail(function(xhr, status, error) {
+                    alert(status + ":" + error);
+                    edit_node.value = edit_content;
+                    edit_node.focus();
+            });
+        },
+        
+        updateContent: function(boardid, content, index, edit_node)
+        {
+            $.post("./api/content_update.php",
+                {
+                    boardid: boardid,
+                    content: content,
+                    index: index
+                }
+            ).done(function(res){
+                res = tools.json_preprocess(res);
+                response = JSON.parse(res);
+                if(response['discription'].length > 0)
+                {
+                    alert(response['discription']);
+                    edit_node.value = edit_content;
+                    edit_node.focus();
+                    return;
+                }
+                edit_content = content;
+                edit_node.parentElement.children[2].remove();
+                edit_node.blur();
+            })
+             .fail(function(xhr, status, error) {
+                    alert(status + ":" + error);
+                    edit_node.value = edit_content;
+                    edit_node.focus();
+            });
+        },
         
         addBoard: function(id, title){
             
@@ -76,6 +133,7 @@ var tools = (function(){
             title_element.value = title;
             tools.addListener(title_element, "focus", tools.edit_title);
             tools.addListener(title_element, "blur", tools.remove_title_saveButton);
+            tools.addListener(title_element, "change", tools.onchangeHandler);
             
             var card_array = document.createElement("ul");
             card_array.setAttribute("class", "card-array ui-sortable");
@@ -177,14 +235,18 @@ var tools = (function(){
         
         edit_mode: function(event){
             var e = event || window.event;
+            edit_content = e.target.value;
+            
             var saveButton = document.createElement("button");
             saveButton.setAttribute("type", "button");
             saveButton.setAttribute("class", "btn btn-primary btn-sm");
             saveButton.innerHTML = "Save";
             
             tools.addListener(saveButton, "click", function(){
-                e.target.blur();
-                e.target.parentElement.children[2].remove();
+                var trello = document.getElementById("trello");
+                var card_index = Array.prototype.indexOf.call(e.target.parentElement.parentElement.children, e.target.parentElement);
+                var board_index = Array.prototype.indexOf.call(trello.children, e.target.parentElement.parentElement.parentElement);
+                updateTitle(board_array[board_index].id, e.target.value, card_index, e.target);
             });
             
             e.target.parentElement.insertBefore(saveButton, e.target.parentElement.children[2]);
@@ -203,8 +265,8 @@ var tools = (function(){
             saveButton.innerHTML = "Save";
             
             tools.addListener(saveButton, "click", function(){
-                e.target.blur();
-                e.target.parentElement.children[1].remove();
+                var board_index = Array.prototype.indexOf.call(e.target.parentElement.parentElement.children, e.target.parentElement);
+                updateTitle(board_array[board_index].id, e.target.value, e.target);
             });
             
             e.target.parentElement.insertBefore(saveButton, e.target.parentElement.children[1]);
@@ -227,8 +289,15 @@ var tools = (function(){
                 
                 var board_index = Array.prototype.indexOf.call(trello.children, e.target.parentElement.parentElement.parentElement);
                 board_array[board_index].addEmptyCard();
+                e.target.blur();
+                e.target.parentElement.nextSibling.children[1].focus();
             }
         },
+        onchangeHandler: function(event)
+        {
+            var e = event || window.event;
+            e.target.value = edit_content;
+        }
         
         checkbox_check: function(event){
             var e = event || window.event;
