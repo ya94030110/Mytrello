@@ -140,7 +140,7 @@ var tools = (function(){
             saveButton.setAttribute("type", "button");
             saveButton.setAttribute("class", "btn btn-primary btn-sm");
             saveButton.innerHTML = "Save";
-            tools.addListener(saveButton, "click", tools.title_update);
+            tools.addListener(saveButton, "mousedown", tools.title_update);
             saveButton.style.display = "none";
             
             var card_array = document.createElement("ul");
@@ -221,7 +221,7 @@ var tools = (function(){
             saveButton.setAttribute("type", "button");
             saveButton.setAttribute("class", "btn btn-primary btn-sm");
             saveButton.innerHTML = "Save";
-            tools.addListener(saveButton, "click", tools.content_update);
+            tools.addListener(saveButton, "mousedown", tools.content_update);
             saveButton.style.display = "none";
             
             var deleteButton = document.createElement("button");
