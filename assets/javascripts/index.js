@@ -5,7 +5,7 @@ var max_cardid = 0;
 
 
 $(document).ready(function(){
-    $( "#sortable" ).sortable();
+    $( "#trello" ).sortable();
     var add_checklist = document.getElementById("add-checklist");
     tools.addListener(add_checklist, "click", tools.addClicklist)
 })
