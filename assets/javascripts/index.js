@@ -249,9 +249,9 @@ var tools = (function(){
         
         json_preprocess: function(response)
         {
-            for(i = 0; i < caption_response.length; i++)
+            for(i = 0; i < response.length; i++)
             {
-                if(caption_response[i] == "{") return caption_response.substring(i);
+                if(response[i] == "{") return response.substring(i);
             }
         },
         
