@@ -82,7 +82,7 @@ var tools = (function(){
                     return;
                 }
                 edit_content = title;
-                edit_node.parentElement.children[1].remove();
+                edit_node.parentElement.children[1].style.display = "none";
                 edit_node.blur();
             })
              .fail(function(xhr, status, error) {
@@ -111,7 +111,7 @@ var tools = (function(){
                     return;
                 }
                 edit_content = content;
-                edit_node.parentElement.children[2].remove();
+                edit_node.parentElement.children[2].style.display = "none";
                 edit_node.blur();
             })
              .fail(function(xhr, status, error) {
@@ -254,20 +254,7 @@ var tools = (function(){
             var e = event || window.event;
             edit_content = e.target.value;
             
-            var saveButton = document.createElement("button");
-            saveButton.setAttribute("type", "button");
-            saveButton.setAttribute("class", "btn btn-primary btn-sm");
-            saveButton.innerHTML = "Save";
-            
-            tools.addListener(saveButton, "click", function(event){
-                var e = event || window.event;
-                var trello = document.getElementById("trello");
-                var card_index = Array.prototype.indexOf.call(e.target.parentElement.parentElement.children, e.target.parentElement);
-                var board_index = Array.prototype.indexOf.call(trello.children, e.target.parentElement.parentElement.parentElement);
-                tools.updateTitle(board_array[board_index].id, e.target.value, card_index, e.target);
-            });
-            
-            e.target.parentElement.insertBefore(saveButton, e.target.parentElement.children[2]);
+            e.target.parentElement.children[2].style.display = "block";
         },
         
         edit_title: function(event){
