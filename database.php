@@ -89,6 +89,55 @@ function createBoard(
     
 }
 
+function updateTitle(
+    $boardId,    //The boardid
+    $title,    //new title
+    $conn
+){
+    if($conn->connect_error) {
+        
+        debug_to_console("Connection failed: " . $conn->connect_error);
+        if(!is_null($conn)){
+            mysqli_close($conn);
+        }
+        return;
+    }
+        // update the new title
+        $sql=sprintf("UPDATE js_checklist SET title='%s' WHERE id='%d' ;",$title,$boardId);
+        $result = $conn->query($sql);
+        if($result===True){
+            debug_to_console("Succeeded to update id!");
+        }
+        else{
+            debug_to_console("Faile to update title!");
+        }
+}
+
+function updateContent(
+    $boardId,    //boardid of the board where the card
+    $index       //index of the card in card array
+    $content,    //new content
+    $conn
+){
+    if($conn->connect_error) {
+        
+        debug_to_console("Connection failed: " . $conn->connect_error);
+        if(!is_null($conn)){
+            mysqli_close($conn);
+        }
+        return;
+    }
+        // update the new title
+        $sql=sprintf("UPDATE js_checklist_item SET content='%s' WHERE checklist_id='%d' AND sn='%d';",$content,$boardId,$index);
+        $result = $conn->query($sql);
+        if($result===True){
+            debug_to_console("Succeeded to update id!");
+        }
+        else{
+            debug_to_console("Faile to update title!");
+        }
+}
+
 function debug_to_console( $data, $context = 'Debug in Console' ) {
 
     // Buffering to solve problems frameworks, like header() in this and not a solid return.
