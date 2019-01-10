@@ -66,6 +66,7 @@ var tools = (function(){
         
         updateTitle: function(boardid, title, edit_node)
         {
+            console.log(content);
             $.post("./api/title_update.php",
                 {
                     boardid: boardid,
@@ -94,6 +95,7 @@ var tools = (function(){
         
         updateContent: function(boardid, content, index, edit_node)
         {
+            console.log("content");
             $.post("./api/content_update.php",
                 {
                     boardid: boardid,
