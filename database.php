@@ -115,7 +115,7 @@ function updateTitle(
 
 function updateContent(
     $boardId,    //boardid of the board where the card
-    $index       //index of the card in card array
+    $index,      //index of the card in card array
     $content,    //new content
     $conn
 ){
