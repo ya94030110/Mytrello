@@ -268,7 +268,6 @@ var tools = (function(){
             var e = event || window.event;
             if(e.key == "Enter")
             {
-                e.target.blur();
                 var trello = document.getElementById("trello");
                     
                 var target_index = Array.prototype.indexOf.call(e.target.parentElement.parentElement.children, e.target.parentElement);
@@ -277,6 +276,7 @@ var tools = (function(){
                 
                 var board_index = Array.prototype.indexOf.call(trello.children, e.target.parentElement.parentElement.parentElement);
                 tools.updateContent(board_index, e.target.value, target_index, e.target);
+                e.target.blur();
                 board_array[board_index].addEmptyCard();
             }
         },
