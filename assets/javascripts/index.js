@@ -26,7 +26,11 @@ var tools = (function(){
             ).done(function(res){
                 res = tools.json_preprocess(res);
                 response = JSON.parse(res);
-                if(response['discription'].length > 0) return;
+                if(response['discription'].length > 0)
+                {
+                    alert(response['discription']);
+                    return;
+                }
                 max_cardid++;
                 board_array[board_index].insertCardAfter(index, content);
             })
@@ -46,7 +50,11 @@ var tools = (function(){
             ).done(function(res){
                 res = tools.json_preprocess(res);
                 response = JSON.parse(res);
-                if(response['discription'].length > 0) return;
+                if(response['discription'].length > 0)
+                {
+                    alert(response['discription']);
+                    return;
+                }
                 tools.addBoard(boardid, title);
             })
              .fail(function(xhr, status, error) {
