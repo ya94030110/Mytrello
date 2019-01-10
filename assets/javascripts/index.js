@@ -19,9 +19,10 @@ var tools = (function(){
                     content: content,
                     card_len: card_len
                 }
-            ).done(function(res){})
+            ).done(function(res){return 1;})
              .fail(function(xhr, status, error) {
                     alert(status + ":" + error);
+                    return 0;
             });
         },
         
@@ -33,7 +34,7 @@ var tools = (function(){
                     title:title,
                     board_len: board_len
                 }
-            ).done(function(res){})
+            ).done(function(res){tools.addBoard(boardid, title);})
              .fail(function(xhr, status, error) {
                     alert(status + ":" + error);
             });
@@ -85,6 +86,9 @@ var tools = (function(){
             var title_input = document.getElementById("title-input");
             var save_button = document.getElementById("save-title");
             var close_button = document.getElementById("close-title");
+            
+            tools.removeListener(save_button, "click", tools.saveTitle);
+            tools.removeListener(close_button, "click", tools.closeModal);
             
             tools.addListener(save_button, "click", tools.saveTitle);
             tools.addListener(close_button, "click", tools.closeModal);
@@ -138,18 +142,14 @@ var tools = (function(){
         
         saveTitle: function(){
             var title_input = document.getElementById("title-input");
-            var save_button = document.getElementById("save-title");
             
             board_array.push(new Board(title_input.value));
             $("#title-modal").modal("hide");
-            tools.removeListener(save_button, "click", tools.saveTitle);
+            
         },
         
         closeModal: function(){
-            var close_button = document.getElementById("close-title");
-            
             $("#title-modal").modal("hide");
-            tools.removeListener(close_button, "click", tools.closeModal);
         },
         
         edit_mode: function(event){
@@ -197,22 +197,13 @@ var tools = (function(){
             if(e.key == "Enter")
             {
                 var trello = document.getElementById("trello");
-                if(e.target.value == "") e.target.parentElement.remove();
-                else{
-                    var cursorPos = Number(tools.getCursurPosition(e.target));
-                    var moved_str = e.target.value.slice(cursorPos),
-                        reserve_str = e.target.value.slice(0, cursorPos);
                     
-                    var target_index = Array.prototype.indexOf.call(e.target.parentElement.parentElement.children, e.target.parentElement);
-                    var board_index = Array.prototype.indexOf.call(trello.children, e.target.parentElement.parentElement.parentElement);
-                    
-                    board_array[board_index].insertCardAfter(target_index, moved_str);
-                    
-                    e.target.value = reserve_str;
-                    e.target.parentElement.parentElement.children[target_index + 1].children[1].value = moved_str;
-                    
-                    tools.setCursorPosition(e.target.parentElement.parentElement.children[target_index + 1].children[1], 0);
-                }
+                var target_index = Array.prototype.indexOf.call(e.target.parentElement.parentElement.children, e.target.parentElement);
+                
+                if(target_index + 1 != e.target.parentElement.parentElement.children.length) return;
+                
+                var board_index = Array.prototype.indexOf.call(trello.children, e.target.parentElement.parentElement.parentElement);
+                board_array[board_index].insertCardAfter(target_index, moved_str);
             }
         },
         
@@ -225,38 +216,6 @@ var tools = (function(){
             else
             {
                 e.target.parentElement.children[1].disabled = false;
-            }
-        },
-        
-        getCursurPosition: function(textDom) {
-            var cursorPos = 0;
-            if (document.selection) {
-                // IE Support
-                textDom.focus ();
-                var selectRange = document.selection.createRange();
-                selectRange.moveStart ('character', -textDom.value.length);
-                cursorPos = selectRange.text.length;
-            }
-            else if (textDom.selectionStart || textDom.selectionStart == '0') {
-                // Firefox support
-                cursorPos = textDom.selectionStart;
-            }
-            return cursorPos;
-        },
-
-        setCursorPosition: function(node, pos) {
-            // Modern browsers
-            if (node.setSelectionRange) {
-                node.focus();
-                node.setSelectionRange(pos, pos);
-            } 
-            // IE8 and below
-            else if (node.createTextRange) {
-                var range = node.createTextRange();
-                range.collapse(true);
-                range.moveEnd('character', pos);
-                range.moveStart('character', pos);
-                range.select();
             }
         },
         
@@ -296,7 +255,7 @@ var Board = (function(){
         this.id = ++max_id;
         this.index = board_array.length;
         this.card_len = 0;
-        tools.addBoard(this.id, this.title);
+        tools.createBoard(this.id, this.title, board_array.length);
     };
 
     Board.prototype = {
@@ -310,14 +269,16 @@ var Board = (function(){
         
         insertCardAfter: function(index, content)
         {
+            if(tools.insertCardAfter(this.id, index, content, this.card_len) == 0) return;
+
             var card_array = document.getElementsByClassName("card-array")[this.index];
             var newCard = tools.createCard(content);
             
             if(index + 1 != this.card_len)
                 card_array.insertBefore(newCard,  card_array.children[index + 1]);
             else card_array.appendChild(newCard);
+            this.card_len++;
             
-            tools.insertCardAfter(this.id, index, content, this.card_len++);
         },
         
         addEmptyCard: function(){
