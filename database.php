@@ -29,7 +29,7 @@ function insertCardAfter(
         $sql=sprintf("INSERT into js_checklist_item(card_id, checklist_id, content, sn, checked) values('%d','%d','%s','%d','%d') ;",$cardID,$boardId,$content,$newCardIndex,$checked);
         $result = $conn->query($sql);
         if($result===True){
-            debug_to_console("Succeeded to insert new card!");
+            debug_to_console("cardid:" + $cardId + " boardid:" + $boardId);
         }
         else{
             debug_to_console("Faile to insert new card!");
