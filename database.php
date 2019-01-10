@@ -20,7 +20,7 @@ function insertCardAfter(
         return;
     }
         //move objects after target object to get a space for new card
-        moveRowsforInsert($boardId, $targetIndex, $finalIndex, $conn);
+        moveRowsforInsert($boardId, $targetIndex, $finalIndex + 1, $conn);
         
         // insert the new card
         $checked = 0;
