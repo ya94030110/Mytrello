@@ -13,7 +13,7 @@ var tools = (function(){
         
         insertCardAfter: function(boardid, index, content, card_len)
         {
-            console.log(boardid + " " + index + " " + card_len)
+            console.log(max_cardid + " " + boardid + " " + index + " " + card_len)
              $.post("./api/card_insert.php",
                 {
                     cardid: max_cardid,
