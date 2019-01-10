@@ -113,7 +113,7 @@ var tools = (function(){
                     return;
                 }
                 edit_content = content;
-                edit_node.parentElement.children[2].style.display = "none";
+                edit_node.parentElement.children[3].style.display = "none";
                 edit_node.blur();
             })
              .fail(function(xhr, status, error) {
@@ -256,7 +256,7 @@ var tools = (function(){
             var e = event || window.event;
             edit_content = e.target.value;
             
-            e.target.parentElement.children[2].style.display = "block";
+            e.target.parentElement.children[3].style.display = "block";
         },
         
         edit_title: function(event){
@@ -289,14 +289,14 @@ var tools = (function(){
             var e = event || window.event;
             e.target.value = edit_content;
             if(e.target.parentElement.children.length == 6) e.target.parentElement.children[1].style.display = "none";
-            if(e.target.parentElement.children.length == 4) e.target.parentElement.children[2].style.display = "none";
+            if(e.target.parentElement.children.length == 4) e.target.parentElement.children[3].style.display = "none";
         },
         
         hide_saveButton: function(event)
         {
             var e = event || window.event;
             if(e.target.parentElement.children.length == 6) e.target.parentElement.children[1].style.display = "none";
-            if(e.target.parentElement.children.length == 4) e.target.parentElement.children[2].style.display = "none";
+            if(e.target.parentElement.children.length == 4) e.target.parentElement.children[3].style.display = "none";
         },
         
         content_update: function(event)
