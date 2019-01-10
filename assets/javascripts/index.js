@@ -301,6 +301,7 @@ var tools = (function(){
         
         content_update: function(event)
         {
+            console.log("click save button");
             var e = event || window.event;
             var trello = document.getElementById("trello");
             var card_index = Array.prototype.indexOf.call(e.target.parentElement.parentElement.children, e.target.parentElement);
