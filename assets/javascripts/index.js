@@ -246,7 +246,7 @@ var tools = (function(){
                 var trello = document.getElementById("trello");
                 var card_index = Array.prototype.indexOf.call(e.target.parentElement.parentElement.children, e.target.parentElement);
                 var board_index = Array.prototype.indexOf.call(trello.children, e.target.parentElement.parentElement.parentElement);
-                updateTitle(board_array[board_index].id, e.target.value, card_index, e.target);
+                tools.updateTitle(board_array[board_index].id, e.target.value, card_index, e.target);
             });
             
             e.target.parentElement.insertBefore(saveButton, e.target.parentElement.children[2]);
@@ -264,9 +264,10 @@ var tools = (function(){
             saveButton.setAttribute("class", "btn btn-primary btn-sm");
             saveButton.innerHTML = "Save";
             
+            edit_content = e.target.value;
             tools.addListener(saveButton, "click", function(){
                 var board_index = Array.prototype.indexOf.call(e.target.parentElement.parentElement.children, e.target.parentElement);
-                updateTitle(board_array[board_index].id, e.target.value, e.target);
+                tools.updateTitle(board_array[board_index].id, e.target.value, e.target);
             });
             
             e.target.parentElement.insertBefore(saveButton, e.target.parentElement.children[1]);
@@ -290,6 +291,7 @@ var tools = (function(){
                 var board_index = Array.prototype.indexOf.call(trello.children, e.target.parentElement.parentElement.parentElement);
                 board_array[board_index].addEmptyCard();
                 e.target.blur();
+                console.log(e.target.parentElement);
                 e.target.parentElement.nextSibling.children[1].focus();
             }
         },
