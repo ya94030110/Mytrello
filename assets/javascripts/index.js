@@ -304,7 +304,7 @@ var Board = (function(){
                 card_array.insertBefore(newCard,  card_array.children[index + 1]);
             else card_array.appendChild(newCard);
             this.card_len++;
-        }
+        },
         
         addEmptyCard: function(){
             
