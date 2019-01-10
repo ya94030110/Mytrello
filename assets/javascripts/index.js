@@ -25,6 +25,8 @@ var tools = (function(){
                 }
             ).done(function(res){
                 console.log(res);
+                response = JSON.parse(res);
+                if(response['success'] == 0) return 0;
                 max_cardid++;
                 return 1;
             })
