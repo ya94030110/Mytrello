@@ -43,7 +43,6 @@ var tools = (function(){
         
         
         addBoard: function(id, title){
-            tools.createBoard(id, title, board_array.length);
             
             var trello = document.getElementById("trello");
             var newBoard = document.createElement("li");
