@@ -340,6 +340,7 @@ var tools = (function(){
             }
         },
         
+        
         addListener: function(object, addEvent, handler)
         {
             object.addEventListener(addEvent, handler);
@@ -390,7 +391,6 @@ var Board = (function(){
             if(index + 1 != this.card_len)
                 card_array.insertBefore(newCard,  card_array.children[index + 1]);
             else card_array.appendChild(newCard);
-            card_array.children[index + 1].focus();
             this.card_len++;
         },
         
