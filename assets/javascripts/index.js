@@ -135,7 +135,6 @@ var tools = (function(){
             title_element.value = title;
             tools.addListener(title_element, "focus", tools.edit_title);
             tools.addListener(title_element, "blur", tools.hide_saveButton);
-            tools.addListener(title_element, "change", tools.onchangeHandler);
             
             var saveButton = document.createElement("button");
             saveButton.setAttribute("type", "button");
@@ -217,7 +216,6 @@ var tools = (function(){
             tools.addListener(content_input, "focus", tools.edit_mode);
             tools.addListener(content_input, "blur", tools.hide_saveButton);
             tools.addListener(content_input, "keydown", tools.content_keydown);
-            tools.addListener(content_input, "change", tools.hide_saveButton);
             
             var saveButton = document.createElement("button");
             saveButton.setAttribute("type", "button");
@@ -284,19 +282,12 @@ var tools = (function(){
             }
         },
         
-        onchangeHandler: function(event)
-        {
-            var e = event || window.event;
-            e.target.value = edit_content;
-            if(e.target.parentElement.children.length == 6) e.target.parentElement.children[1].style.display = "none";
-            if(e.target.parentElement.children.length == 4) e.target.parentElement.children[3].style.display = "none";
-        },
-        
         hide_saveButton: function(event)
         {
             var e = event || window.event;
             if(e.target.parentElement.children.length == 6) e.target.parentElement.children[1].style.display = "none";
             if(e.target.parentElement.children.length == 4) e.target.parentElement.children[3].style.display = "none";
+            e.target.value = edit_content;
         },
         
         content_update: function(event)
