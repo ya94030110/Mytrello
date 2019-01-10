@@ -234,8 +234,8 @@ var tools = (function(){
             
             newCard.appendChild(check_input);
             newCard.appendChild(content_input);
-            newCard.appendChild(saveButton);
             newCard.appendChild(deleteButton);
+            newCard.appendChild(saveButton);
            
             return newCard;
         },
