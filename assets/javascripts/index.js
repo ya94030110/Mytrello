@@ -308,7 +308,7 @@ var Board = (function(){
         
         addEmptyCard: function(){
             
-            this.insertCardAfter(this.card_len-1, "");
+            this.insertCardAfter_ajax(this.card_len-1, "");
         },
         
     }
