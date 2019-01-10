@@ -11,7 +11,7 @@ $(document).ready(function(){
 var tools = (function(){
     return{
         
-        insertCardAfter: function(cardid, boardid, index, content, card_len)
+        insertCardAfter: function(boardid, index, content, card_len)
         {
             console.log(boardid + " " + index + " " + card_len)
              $.post("./api/card_insert.php",
