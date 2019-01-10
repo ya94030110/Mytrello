@@ -27,6 +27,7 @@ var tools = (function(){
                 console.log(res);
                 res = tools.json_preprocess(res);
                 response = JSON.parse(res);
+                console.log(response);
                 if(response['success'] == 0) return 0;
                 max_cardid++;
                 return 1;
@@ -48,6 +49,7 @@ var tools = (function(){
             ).done(function(res){
                 res = tools.json_preprocess(res);
                 response = JSON.parse(res);
+                console.log(response);
                 if(response['success'] == 0) return;
                 tools.addBoard(boardid, title);
             })
