@@ -132,8 +132,15 @@ var tools = (function(){
             title_element.setAttribute("class", "content");
             title_element.value = title;
             tools.addListener(title_element, "focus", tools.edit_title);
-            tools.addListener(title_element, "blur", tools.remove_title_saveButton);
+            tools.addListener(title_element, "blur", tools.hide_saveButton);
             tools.addListener(title_element, "change", tools.onchangeHandler);
+            
+            var saveButton = document.createElement("button");
+            saveButton.setAttribute("type", "button");
+            saveButton.setAttribute("class", "btn btn-primary btn-sm");
+            saveButton.innerHTML = "Save";
+            tools.addListener(saveButton, "click", tools.title_update);
+            saveButton.style.display = "none";
             
             var card_array = document.createElement("ul");
             card_array.setAttribute("class", "card-array ui-sortable");
@@ -155,6 +162,7 @@ var tools = (function(){
             var emptyParagragh = document.createElement("p");
             
             newBoard.appendChild(title_element);
+            newBoard.appendChild(saveButton);
             newBoard.appendChild(card_array);
             newBoard.appendChild(addButton);
             newBoard.appendChild(deleteButton);
@@ -205,8 +213,16 @@ var tools = (function(){
             content_input.setAttribute("type", "text");
             content_input.setAttribute("class", "content");
             tools.addListener(content_input, "focus", tools.edit_mode);
-            tools.addListener(content_input, "blur", tools.remove_saveButton);
+            tools.addListener(content_input, "blur", tools.hide_saveButton);
             tools.addListener(content_input, "keydown", tools.content_keydown);
+            tools.addListener(content_input, "change", tools.hide_saveButton);
+            
+            var saveButton = document.createElement("button");
+            saveButton.setAttribute("type", "button");
+            saveButton.setAttribute("class", "btn btn-primary btn-sm");
+            saveButton.innerHTML = "Save";
+            tools.addListener(saveButton, "click", tools.content_update);
+            saveButton.style.display = "none";
             
             var deleteButton = document.createElement("button");
             deleteButton.setAttribute("type", "button");
@@ -216,6 +232,7 @@ var tools = (function(){
             
             newCard.appendChild(check_input);
             newCard.appendChild(content_input);
+            newCard.appendChild(saveButton);
             newCard.appendChild(deleteButton);
            
             return newCard;
@@ -253,31 +270,11 @@ var tools = (function(){
             e.target.parentElement.insertBefore(saveButton, e.target.parentElement.children[2]);
         },
         
-        remove_saveButton: function(event){
-            var e = event || window.event;
-            if(e.target.parentElement.children.length == 4) e.target.parentElement.children[2].remove();
-        },
-        
         edit_title: function(event){
             var e = event || window.event;
-            var saveButton = document.createElement("button");
-            saveButton.setAttribute("type", "button");
-            saveButton.setAttribute("class", "btn btn-primary btn-sm");
-            saveButton.innerHTML = "Save";
-            
+
             edit_content = e.target.value;
-            tools.addListener(saveButton, "click", function(event){
-                var e = event || window.event;
-                var board_index = Array.prototype.indexOf.call(e.target.parentElement.parentElement.children, e.target.parentElement);
-                tools.updateTitle(board_array[board_index].id, e.target.value, e.target);
-            });
-            
-            e.target.parentElement.insertBefore(saveButton, e.target.parentElement.children[1]);
-        },
-        
-        remove_title_saveButton: function(event){
-            var e = event || window.event;
-            if(e.target.parentElement.children.length == 6) e.target.parentElement.children[1].remove();
+            e.target.parentElement.children[1].style.display = "block";
         },
         
         content_keydown: function(event){
@@ -297,12 +294,40 @@ var tools = (function(){
                 e.target.parentElement.nextSibling.children[1].focus();
             }
         },
+        
         onchangeHandler: function(event)
         {
             var e = event || window.event;
             e.target.value = edit_content;
-            if(e.target.parentElement.children.length == 6) e.target.parentElement.children[1].remove();
-            if(e.target.parentElement.children.length == 4) e.target.parentElement.children[2].remove();
+            if(e.target.parentElement.children.length == 6) e.target.parentElement.children[1].style.display = "none";
+            if(e.target.parentElement.children.length == 4) e.target.parentElement.children[2].style.display = "none";
+        },
+        
+        hide_saveButton: function(event)
+        {
+            var e = event || window.event;
+            if(e.target.parentElement.children.length == 6) e.target.parentElement.children[1].style.display = "none";
+            if(e.target.parentElement.children.length == 4) e.target.parentElement.children[2].style.display = "none";
+        },
+        
+        content_update: function(event)
+        {
+            var e = event || window.event;
+            var trello = document.getElementById("trello");
+            var card_index = Array.prototype.indexOf.call(e.target.parentElement.parentElement.children, e.target.parentElement);
+            var board_index = Array.prototype.indexOf.call(trello.children, e.target.parentElement.parentElement.parentElement);
+            var input_node = e.target.parentElement.children[1];
+            tools.updateContent(board_array[board_iddex].id, input_node.value, card_index, input_node);
+            e.target.style.display = "none";
+        },
+        
+        title_update: function(event)
+        {
+            var e = event || window.event;
+            var board_index = Array.prototype.indexOf.call(e.target.parentElement.parentElement.children, e.target.parentElement);
+            var input_node = e.target.parentElement.children[0];
+            tools.updateTitle(board_array[board_index].id, input_node.value, input_node);
+            e.target.style.display = "none";
         },
         
         checkbox_check: function(event){
