@@ -275,10 +275,8 @@ var tools = (function(){
                 if(target_index + 1 != e.target.parentElement.parentElement.children.length) return;
                 
                 var board_index = Array.prototype.indexOf.call(trello.children, e.target.parentElement.parentElement.parentElement);
+                tools.updateContent(board_index, e.target.value, target_index, e.target);
                 board_array[board_index].addEmptyCard();
-                e.target.blur();
-                console.log(e.target.parentElement);
-                e.target.parentElement.nextSibling.children[1].focus();
             }
         },
         
@@ -392,6 +390,7 @@ var Board = (function(){
             if(index + 1 != this.card_len)
                 card_array.insertBefore(newCard,  card_array.children[index + 1]);
             else card_array.appendChild(newCard);
+            newcard.focus();
             this.card_len++;
         },
         
