@@ -52,7 +52,7 @@ var tools = (function(){
             
             var trello = document.getElementById("trello");
             var newBoard = document.createElement("li");
-            newBoard.setAttribute("class", "check-board");
+            newBoard.setAttribute("class", "check-board ui-state-default ui-sortable-handle");
             
             var title_element = document.createElement("input");
             title_element.setAttribute("type", "text");
@@ -62,7 +62,7 @@ var tools = (function(){
             tools.addListener(title_element, "blur", tools.remove_title_saveButton);
             
             var card_array = document.createElement("ul");
-            card_array.setAttribute("class", "card-array");
+            card_array.setAttribute("class", "card-array ui-sortable");
     
             var addButton = document.createElement("button");
             addButton.setAttribute("type", "button");
