@@ -297,7 +297,7 @@ var tools = (function(){
         {
             var e = event || window.event;
             e.target.value = edit_content;
-        }
+        },
         
         checkbox_check: function(event){
             var e = event || window.event;
