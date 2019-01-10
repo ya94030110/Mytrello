@@ -242,7 +242,8 @@ var tools = (function(){
             saveButton.setAttribute("class", "btn btn-primary btn-sm");
             saveButton.innerHTML = "Save";
             
-            tools.addListener(saveButton, "click", function(){
+            tools.addListener(saveButton, "click", function(event){
+                var e = event || window.event;
                 var trello = document.getElementById("trello");
                 var card_index = Array.prototype.indexOf.call(e.target.parentElement.parentElement.children, e.target.parentElement);
                 var board_index = Array.prototype.indexOf.call(trello.children, e.target.parentElement.parentElement.parentElement);
@@ -265,7 +266,8 @@ var tools = (function(){
             saveButton.innerHTML = "Save";
             
             edit_content = e.target.value;
-            tools.addListener(saveButton, "click", function(){
+            tools.addListener(saveButton, "click", function(event){
+                var e = event || window.event;
                 var board_index = Array.prototype.indexOf.call(e.target.parentElement.parentElement.children, e.target.parentElement);
                 tools.updateTitle(board_array[board_index].id, e.target.value, e.target);
             });
@@ -299,6 +301,8 @@ var tools = (function(){
         {
             var e = event || window.event;
             e.target.value = edit_content;
+            if(e.target.parentElement.children.length == 6) e.target.parentElement.children[1].remove();
+            if(e.target.parentElement.children.length == 4) e.target.parentElement.children[2].remove();
         },
         
         checkbox_check: function(event){
