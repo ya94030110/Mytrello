@@ -425,7 +425,7 @@ var tools = (function(){
                 if(data_array[i].data == null) card_len = 0;
                 else card_len = data_array[i].data.length;
                 
-                board_array.push(new Board(data_array[i].title, data_array[i].id, card_len));
+                board_array.push(new Board(data_array[i].title, data_array[i].id, 0));
                 for(j = 0; j < card_len; j++)
                 {
                     board_array[i].insertCardAfter(i, data_array[i].data[j].content, data_array[i].data[j].checked);
@@ -461,7 +461,6 @@ var Board = (function(){
         this.id = id;
         this.index = board_array.length;
         this.card_len = card_len;
-        console.log(card_len + " " + this.card_len);
     };
 
     Board.prototype = {
