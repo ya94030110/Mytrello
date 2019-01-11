@@ -141,11 +141,11 @@ var tools = (function(){
             });
         },
         
-        updateChecked: function(boardid, newchecked, index, edit_node)
+        updateChecked: function(board_index, newchecked, index, edit_node)
         {
             $.post("./api/checked_update.php",
                 {
-                    boardid: boardid,
+                    boardid: board_array[board_index].id,
                     checked: newchecked,
                     index: index
                 }
@@ -159,6 +159,8 @@ var tools = (function(){
                     alert(response['discription']);
                     return;
                 }
+                if(newchecked == 0) board_array[board_index].unfinish();
+                else board_array[board_index].finish();
             })
              .fail(function(xhr, status, error) {
                     if(newchecked == 0) edit_node.checked = true;
@@ -236,6 +238,17 @@ var tools = (function(){
             tools.addListener(saveButton, "mousedown", tools.title_update);
             saveButton.style.display = "none";
             
+            var progress = document.createElement("div");
+            progress.setAttribute("class", "progress");
+            var progress_bar = document.createElement("div");
+            progress_bar.setAttribute("class", "progress-bar");
+            progress_bar.setAttribute("role", "progressbar");
+            progress_bar.setAttribute("aria-valuenow", "0");
+            progress_bar.setAttribute("aria-valuemin", "0");
+            progress_bar.setAttribute("aria-valuemax", "100");
+            progress_bar.setAttribute("style", "width:" + 60 + "%;");
+            progress.appendChild(progress_bar);
+            
             var card_array = document.createElement("ul");
             card_array.setAttribute("class", "card-array");
     
@@ -255,6 +268,7 @@ var tools = (function(){
             
             newBoard.appendChild(title_element);
             newBoard.appendChild(saveButton);
+            newBoard.appendChild(progress);
             newBoard.appendChild(card_array);
             newBoard.appendChild(addButton);
             newBoard.appendChild(deleteButton);
@@ -420,11 +434,11 @@ var tools = (function(){
 
             if(e.target.checked == true)
             {
-                tools.updateChecked(board_array[board_index].id, 1, card_index, e.target);
+                tools.updateChecked(board_index, 1, card_index, e.target);
             }
             else
             {
-                tools.updateChecked(board_array[board_index].id, 0, card_index, e.target);
+                tools.updateChecked(board_index, 0, card_index, e.target);
             }
         },
         
@@ -487,6 +501,8 @@ var Board = (function(){
     var id;
     var index;
     var card_len;
+    var all_job;
+    var finish_job;
     
     //constructor
     var Board = function (board_title, id, card_len) {
@@ -494,6 +510,8 @@ var Board = (function(){
         this.id = id;
         this.index = board_array.length;
         this.card_len = card_len;
+        this.all_job = card_len;
+        finish_job = 0;
     };
 
     Board.prototype = {
@@ -518,7 +536,11 @@ var Board = (function(){
             if(index + 1 != this.card_len)
                 card_array.insertBefore(newCard,  card_array.children[index + 1]);
             else card_array.appendChild(newCard);
-            if(checked == 1) newCard.children[0].checked = true;
+            if(checked == 1)
+            {
+                newCard.children[0].checked = true;
+                this.finish_job();
+            }
             
             $(".card-array").sortable({
                 items: ".check-card"
@@ -528,6 +550,7 @@ var Board = (function(){
             });
             
             this.card_len++;
+            this.all_job++;
         },
         
         addEmptyCard: function(){
@@ -540,6 +563,16 @@ var Board = (function(){
         
         move: function(i){
             this.index -= i;
+        },
+        
+        finish: function()
+        {
+            this.finish++;
+        },
+        
+        unfinish: function()
+        {
+            this.finish--;
         }
         
     }
