@@ -237,9 +237,10 @@ var tools = (function(){
             saveButton.style.display = "none";
             
             var card_array = document.createElement("ul");
+            var id_string = "" + id;
             card_array.setAttribute("class", "card-array");
-            card_array.setAttribute("id", "" + id);
-            $( "" + id ).sortable();
+            card_array.setAttribute("id", id_string);
+            $( id_string ).sortable();
     
             var addButton = document.createElement("button");
             addButton.setAttribute("type", "button");
