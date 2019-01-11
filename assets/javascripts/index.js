@@ -115,7 +115,6 @@ var tools = (function(){
         
         updateContent: function(boardid, newcontent, index, edit_node)
         {
-            console.log(boardid + " " + newcontent + " " + index);
             $.post("./api/content_update.php",
                 {
                     boardid: boardid,
@@ -140,6 +139,30 @@ var tools = (function(){
                     alert(status + ":" + error);
                     edit_node.value = edit_content;
                     edit_node.focus();
+            });
+        },
+        
+        updateChecked: function(boardid, newchecked, index, edit_node)
+        {
+            $.post("./api/checked_update.php",
+                {
+                    boardid: boardid,
+                    checked: newchecked,
+                    index: index
+                }
+            ).done(function(res){
+                res = tools.json_preprocess(res);
+                response = JSON.parse(res);
+                if(response['discription'].length > 0)
+                {
+                    alert(response['discription']);
+                    return;
+                }
+                if(newchecked == 0) edit_node.checked = true;
+                else edit_node.checked = false;
+            })
+             .fail(function(xhr, status, error) {
+                    alert(status + ":" + error);
             });
         },
         
@@ -385,13 +408,16 @@ var tools = (function(){
         
         checkbox_check: function(event){
             var e = event || window.event;
+            var trello = document.getElementById("trello");
+            var card_index = Array.prototype.indexOf.call(e.target.parentElement.parentElement.children, e.target.parentElement);
+            var board_index = Array.prototype.indexOf.call(trello.children, e.target.parentElement.parentElement.parentElement);
             if(e.target.checked == true)
             {
-                e.target.parentElement.children[1].disabled = true;
+                tools.updateChecked(board_index, 0, card_index, e.target);
             }
             else
             {
-                e.target.parentElement.children[1].disabled = false;
+                tools.updateChecked(board_index, 1, card_index, e.target);
             }
         },
         

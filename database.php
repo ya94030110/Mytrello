@@ -105,7 +105,7 @@ function updateTitle(
         $sql=sprintf("UPDATE js_checklist SET title='%s' WHERE id='%d' ;",$title,$boardId);
         $result = $conn->query($sql);
         if($result===True){
-            debug_to_console("Succeeded to update id!");
+            debug_to_console("Succeeded to update title!");
         }
         else{
             debug_to_console("Faile to update title!");
@@ -130,10 +130,35 @@ function updateContent(
         $sql=sprintf("UPDATE js_checklist_item SET content='%s' WHERE checklist_id='%d' AND sn='%d';",$content,$boardId,$index);
         $result = $conn->query($sql);
         if($result===True){
-            debug_to_console("Succeeded to update id!");
+            debug_to_console("Succeeded to update content!");
         }
         else{
-            debug_to_console("Faile to update title!");
+            debug_to_console("Faile to update content!");
+        }
+}
+
+function updateChecked(
+    $boardId,    //boardid of the board where the card
+    $index,      //index of the card in card array
+    $checked,    //new content
+    $conn
+){
+    if($conn->connect_error) {
+        
+        debug_to_console("Connection failed: " . $conn->connect_error);
+        if(!is_null($conn)){
+            mysqli_close($conn);
+        }
+        return;
+    }
+        // update the new content
+        $sql=sprintf("UPDATE js_checklist_item SET checked='%d' WHERE checklist_id='%d' AND sn='%d';",$checked,$boardId,$index);
+        $result = $conn->query($sql);
+        if($result===True){
+            debug_to_console("Succeeded to update checked!");
+        }
+        else{
+            debug_to_console("Faile to update checked!");
         }
 }
 
