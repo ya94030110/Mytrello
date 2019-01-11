@@ -300,7 +300,7 @@ var tools = (function(){
 
         createCard: function(content){
             var newCard = document.createElement("li");
-            newCard.setAttribute("class", "check-card");
+            newCard.setAttribute("class", "check-card ui-sortable-handle");
     
             var check_input = document.createElement("input");
             check_input.setAttribute("type", "checkbox");
