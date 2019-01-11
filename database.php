@@ -217,7 +217,7 @@ function getChecklist($conn) {
     
     $rows=mysqli_num_rows($result);
     // debug_to_console("returned rows:".$rows);
-    file_put_contents("myTest.txt", $rows);
+
     if($rows!==0){
         $checklist_data = [];
         while($row = $result->fetch_assoc()) {
