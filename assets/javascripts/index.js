@@ -29,7 +29,7 @@ var tools = (function(){
              .fail(function(xhr, status, error) {
                     alert(status + ":" + error);
             });
-        }
+        },
         
         insertCardAfter: function(boardid, index, content, card_len, board_index)
         {
