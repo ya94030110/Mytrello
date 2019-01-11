@@ -23,7 +23,6 @@ var tools = (function(){
                 }
             ).done(function(res){
                 res = tools.json_preprocess(res);
-                console.log(res);
                 response = JSON.parse(res);
                 tools.constructHTML(response);
             })
