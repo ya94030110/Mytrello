@@ -9,7 +9,7 @@ if(isset($_POST['boardid'], $_POST['checked'], $_POST['index'])) {  //checking t
   $content = $_POST['checked'];
   $index = $_POST['index'];
   $success = 0;
-  $result = updateContent(
+  $result = updateChecked(
     $boardid,
     $index,
     $checked,
