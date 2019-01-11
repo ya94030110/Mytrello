@@ -410,12 +410,14 @@ var tools = (function(){
 var Board = (function(){
     var title;
     var id;
+    var index;
     var card_len;
     
     //constructor
     var Board = function (board_title) {
         this.title = board_title;
         this.id = ++max_id;
+        this.index = board_array.length;
         this.card_len = 0;
         tools.createBoard(this.id, this.title, board_array.length);
     };
