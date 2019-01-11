@@ -419,9 +419,14 @@ var tools = (function(){
             for(i = 0; i < data_array.length; i++)
             {
                 tools.addBoard(data_array[i].id, data_array[i].title);
+                var card_len;
                 if(data_array[i].id > max_id) max_id = data_array[i].id;
+                
+                if(data_array[i].data == null) card_len = 0;
+                else card_len = data_array[i].data.length;
+                
                 board_array.push(new Board(data_array[i].title, data_array[i].id, data_array[i].data.length));
-                if(data_array[i].data == null) continue;
+                if(card_len == 0) continue;
                 for(j = 0; j < data_array[i].data.length; j++)
                 {
                     board_array[i].insertCardAfter(i, data_array[i].data[j].content, data_array[i].data[j].checked);
