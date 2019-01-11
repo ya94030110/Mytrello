@@ -571,14 +571,14 @@ var Board = (function(){
         
         finish: function()
         {
-            this.finish++;
+            this.finish_job++;
             this.percent = Math.round(this.finish_job * 100 / this.all_job);
             document.getElementsByClassName("check-board")[this.index].children[2].children[0].setAttribute("style", "width:" + this.percent + "%;");
         },
         
         unfinish: function()
         {
-            this.finish--;
+            this.finish_job--;
             this.percent = Math.round(this.finish_job * 100 / this.all_job);
             document.getElementsByClassName("check-board")[this.index].children[2].children[0].setAttribute("style", "width:" + this.percent + "%;");
         }
