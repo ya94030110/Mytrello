@@ -421,12 +421,14 @@ var tools = (function(){
                 tools.addBoard(data_array[i].id, data_array[i].title);
                 if(data_array[i].id > max_id) max_id = data_array[i].id;
                 board_array.push(new Board(data_array[i].title, data_array[i].id, data_array[i].data.length));
+                if(data_array[i].data == null) continue;
                 for(j = 0; j < data_array[i].data.length; j++)
                 {
                     board_array[i].insertCardAfter(i, data_array[i].data[j].content, data_array[i].data[j].checked);
                     if(data_array[i].data[j].card_id > max_cardid) max_cardid = data_array[i].data[j].card_id;
                 }
             }
+            console.log(max_cardid);
         },
         
         addListener: function(object, addEvent, handler)
