@@ -23,8 +23,8 @@ var tools = (function(){
                 }
             ).done(function(res){
                 res = tools.json_preprocess(res);
-                console.log(res);
                 response = JSON.parse(res);
+                tools.constructHTML(response);
             })
              .fail(function(xhr, status, error) {
                     alert(status + ":" + error);
@@ -50,7 +50,7 @@ var tools = (function(){
                     return;
                 }
                 max_cardid++;
-                board_array[board_index].insertCardAfter(index, content);
+                board_array[board_index].insertCardAfter(index, content, 0);
             })
              .fail(function(xhr, status, error) {
                     alert(status + ":" + error);
@@ -71,9 +71,12 @@ var tools = (function(){
                 if(response['discription'].length > 0)
                 {
                     alert(response['discription']);
+                    
                     return;
                 }
+                board_array.push(new Board(title, boardid, 0));
                 tools.addBoard(boardid, title);
+                max_id++;
             })
              .fail(function(xhr, status, error) {
                     alert(status + ":" + error);
@@ -311,7 +314,7 @@ var tools = (function(){
         saveTitle: function(){
             var title_input = document.getElementById("title-input");
             
-            board_array.push(new Board(title_input.value));
+            tools.createBoard(max_id + 1, title_input.value, board_array.length);
             $("#title-modal").modal("hide");
             
         },
@@ -410,6 +413,21 @@ var tools = (function(){
             }
         },
         
+        constructHTML: function(json)
+        {
+            var data_array = JSON.parse(json);
+            for(i = 0; i < data_array.length; i++)
+            {
+                tools.createBoard(data_array[i].id, data_array[i].title);
+                if(data_array[i].id > max_id) max_id = data_array[i].id;
+                board_array.push(new Board(data_array[i].title, data_array[i].id, data_array[i].data.length));
+                for(j = 0; j < data_array[i].data.length; j++)
+                {
+                    board_array[i].insertCardAfter(i, data_array[i].data[j].content, data_array[i].data[j].checked);
+                    if(data_array[i].data[j].card_id > max_cardid) max_cardid = data_array[i].data[j].card_id;
+                }
+            }
+        },
         
         addListener: function(object, addEvent, handler)
         {
@@ -431,12 +449,11 @@ var Board = (function(){
     var card_len;
     
     //constructor
-    var Board = function (board_title) {
+    var Board = function (board_title, id, card_len) {
         this.title = board_title;
-        this.id = ++max_id;
+        this.id = id;
         this.index = board_array.length;
-        this.card_len = 0;
-        tools.createBoard(this.id, this.title, board_array.length);
+        this.card_len = card_len;
     };
 
     Board.prototype = {
@@ -453,7 +470,7 @@ var Board = (function(){
             tools.insertCardAfter(this.id, index, content, this.card_len, this.index)
         },
         
-        insertCardAfter: function(index, content)
+        insertCardAfter: function(index, content, checked)
         {
             var card_array = document.getElementsByClassName("card-array")[this.index];
             var newCard = tools.createCard(content);
@@ -461,6 +478,7 @@ var Board = (function(){
             if(index + 1 != this.card_len)
                 card_array.insertBefore(newCard,  card_array.children[index + 1]);
             else card_array.appendChild(newCard);
+            if(checked == 1) newCard.children[0].checked = true;
             this.card_len++;
         },
         
