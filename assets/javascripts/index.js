@@ -413,11 +413,11 @@ var tools = (function(){
             var board_index = Array.prototype.indexOf.call(trello.children, e.target.parentElement.parentElement.parentElement);
             if(e.target.checked == true)
             {
-                tools.updateChecked(board_index, 0, card_index, e.target);
+                tools.updateChecked(board_index, 1, card_index, e.target);
             }
             else
             {
-                tools.updateChecked(board_index, 1, card_index, e.target);
+                tools.updateChecked(board_index, 0, card_index, e.target);
             }
         },
         
