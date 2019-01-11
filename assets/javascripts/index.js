@@ -164,7 +164,7 @@ var tools = (function(){
                     return;
                 }
                 for(i = index + 1; i < board_len; i++) board_array[i].move(-1);
-                delete board_array[index];
+                board_array.splice(index, 1);
                 delete_node.remove();
             })
              .fail(function(xhr, status, error) {
@@ -328,7 +328,7 @@ var tools = (function(){
                 if(target_index + 1 != e.target.parentElement.parentElement.children.length) return;
                 
                 var board_index = Array.prototype.indexOf.call(trello.children, e.target.parentElement.parentElement.parentElement);
-                tools.updateContent(board_index, e.target.value, target_index, e.target);
+                tools.updateContent(board_array[board_index].id, e.target.value, target_index, e.target);
                 board_array[board_index].addEmptyCard();
             }
         },
