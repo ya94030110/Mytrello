@@ -246,7 +246,7 @@ var tools = (function(){
             progress_bar.setAttribute("aria-valuenow", "0");
             progress_bar.setAttribute("aria-valuemin", "0");
             progress_bar.setAttribute("aria-valuemax", "100");
-            progress_bar.setAttribute("style", "width:" + 60 + "%;");
+            progress_bar.setAttribute("style", "width:" + 0 + "%;");
             progress.appendChild(progress_bar);
             
             var card_array = document.createElement("ul");
@@ -503,6 +503,7 @@ var Board = (function(){
     var card_len;
     var all_job;
     var finish_job;
+    var percent;
     
     //constructor
     var Board = function (board_title, id, card_len) {
@@ -511,7 +512,8 @@ var Board = (function(){
         this.index = board_array.length;
         this.card_len = card_len;
         this.all_job = card_len;
-        finish_job = 0;
+        this.finish_job = 0;
+        this.percent = 0;
     };
 
     Board.prototype = {
@@ -551,6 +553,8 @@ var Board = (function(){
             
             this.card_len++;
             this.all_job++;
+            this.percent = Math.round(this.finish_job * 100 / this.all_job);
+            document.getElementsByClassName("check-board")[this.index].children[2].setAttribute("style", "width:" + this.percent + "%;");
         },
         
         addEmptyCard: function(){
@@ -568,11 +572,15 @@ var Board = (function(){
         finish: function()
         {
             this.finish++;
+            this.percent = Math.round(this.finish_job * 100 / this.all_job);
+            document.getElementsByClassName("check-board")[this.index].children[2].setAttribute("style", "width:" + this.percent + "%;");
         },
         
         unfinish: function()
         {
             this.finish--;
+            this.percent = Math.round(this.finish_job * 100 / this.all_job);
+            document.getElementsByClassName("check-board")[this.index].children[2].setAttribute("style", "width:" + this.percent + "%;");
         }
         
     }
