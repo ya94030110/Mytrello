@@ -286,6 +286,7 @@ var tools = (function(){
             var content_input = document.createElement("input");
             content_input.setAttribute("type", "text");
             content_input.setAttribute("class", "content");
+            content_input.value = content;
             tools.addListener(content_input, "focus", tools.edit_mode);
             tools.addListener(content_input, "blur", tools.hide_saveButton);
             tools.addListener(content_input, "keydown", tools.content_keydown);
