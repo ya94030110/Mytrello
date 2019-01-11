@@ -238,8 +238,8 @@ var tools = (function(){
             tools.addListener(saveButton, "mousedown", tools.title_update);
             saveButton.style.display = "none";
             
-            var card_array = document.createElement("div");
-            card_array.setAttribute("ul", "card-array");
+            var card_array = document.createElement("ul");
+            card_array.setAttribute("class", "card-array");
     
             var addButton = document.createElement("button");
             addButton.setAttribute("type", "button");
