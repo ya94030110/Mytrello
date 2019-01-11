@@ -424,11 +424,11 @@ var Board = (function(){
 
     Board.prototype = {
         getid: function(){
-            return id;
+            return this.id;
         },
         
         getTitle: function(){
-            return title;
+            return this.title;
         },
         
         insertCardAfter_ajax: function(index, content)
