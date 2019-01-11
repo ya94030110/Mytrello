@@ -251,7 +251,7 @@ var tools = (function(){
         addEmptyCard: function(event){
             var e = event || window.event;
             var index = Array.prototype.indexOf.call(e.target.parentElement.parentElement.children, e.target.parentElement);
-            //console.log(index);
+            console.log(index);
             board_array[index].addEmptyCard();
         },
 
