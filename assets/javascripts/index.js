@@ -455,7 +455,7 @@ var tools = (function(){
                 board_array.push(new Board(data_array[i].title, data_array[i].id, 0));
                 for(j = 0; j < card_len; j++)
                 {
-                    board_array[i].insertCardAfter(i, data_array[i].data[j].content, data_array[i].data[j].checked);
+                    board_array[i].insertCardAfter(j-1, data_array[i].data[j].content, data_array[i].data[j].checked);
                     if(data_array[i].data[j].card_id > max_cardid) max_cardid = data_array[i].data[j].card_id;
                 }
             }
