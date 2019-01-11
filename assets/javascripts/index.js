@@ -152,9 +152,10 @@ var tools = (function(){
             $.post("./api/board_delete.php",
                 {
                     boardid: boardid,
+                    index: index,
+                    board_len:board_len
                 }
             ).done(function(res){
-                console.log(res);
                 res = tools.json_preprocess(res);
                 response = JSON.parse(res);
                 if(response['discription'].length > 0)
