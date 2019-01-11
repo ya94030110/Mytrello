@@ -144,6 +144,7 @@ var tools = (function(){
         
         updateChecked: function(boardid, newchecked, index, edit_node)
         {
+            console.log(newchecked);
             $.post("./api/checked_update.php",
                 {
                     boardid: boardid,
@@ -155,13 +156,15 @@ var tools = (function(){
                 response = JSON.parse(res);
                 if(response['discription'].length > 0)
                 {
+                    if(newchecked == 0) edit_node.checked = true;
+                    else edit_node.checked = false;
                     alert(response['discription']);
                     return;
                 }
-                if(newchecked == 0) edit_node.checked = false;
-                else edit_node.checked = true;
             })
              .fail(function(xhr, status, error) {
+                    if(newchecked == 0) edit_node.checked = true;
+                    else edit_node.checked = false;
                     alert(status + ":" + error);
             });
         },
@@ -411,6 +414,7 @@ var tools = (function(){
             var trello = document.getElementById("trello");
             var card_index = Array.prototype.indexOf.call(e.target.parentElement.parentElement.children, e.target.parentElement);
             var board_index = Array.prototype.indexOf.call(trello.children, e.target.parentElement.parentElement.parentElement);
+            console.log(e.target.ckecked);
             if(e.target.checked == true)
             {
                 tools.updateChecked(board_index, 1, card_index, e.target);
