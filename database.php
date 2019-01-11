@@ -127,9 +127,69 @@ function updateContent(
         }
         return;
     }
-        // update the new title
+        // update the new content
         $sql=sprintf("UPDATE js_checklist_item SET content='%s' WHERE checklist_id='%d' AND sn='%d';",$content,$boardId,$index);
         $result = $conn->query($sql);
+        if($result===True){
+            debug_to_console("Succeeded to update id!");
+        }
+        else{
+            debug_to_console("Faile to update title!");
+        }
+}
+
+function deleteBoard(
+    $boardId,    //The boardid
+    $index,      //index of the board
+    $board_len   //length of board array
+    $conn
+){
+    if($conn->connect_error) {
+        
+        debug_to_console("Connection failed: " . $conn->connect_error);
+        if(!is_null($conn)){
+            mysqli_close($conn);
+        }
+        return;
+    }
+        // delete the board
+        $conn->query("SET SQL_SAFE_UPDATES=0");
+        $sql=sprintf("DELETE FROM js_checklist WHERE id='%d' ;",$boardId);
+        $result = $conn->query($sql);
+        $sql= sprintf("UPDATE js_checklist SET sn=sn-1 WHERE sn>%d AND sn<%d;",$index, $board_len); 
+        $result = $conn->query($sql);
+        $sql=sprintf("DELETE FROM js_checklist_item WHERE checklist_id='%d' ;",$boardId);
+        $result = $conn->query($sql);
+        $conn->query("SET SQL_SAFE_UPDATES=1");
+        if($result===True){
+            debug_to_console("Succeeded to delete board!");
+        }
+        else{
+            debug_to_console("Faile to delete board!");
+        }
+}
+
+function deleteCard(
+    $boardId,    //boardid of the board where the card
+    $index,      //index of the card in card array
+    $card_len    //length of card array
+    $conn
+){
+    if($conn->connect_error) {
+        
+        debug_to_console("Connection failed: " . $conn->connect_error);
+        if(!is_null($conn)){
+            mysqli_close($conn);
+        }
+        return;
+    }
+        // delete the card
+        $conn->query("SET SQL_SAFE_UPDATES=0");
+        $sql=sprintf("DELETE FROM js_checklist_item WHERE checklist_id='%d' AND sn='%d';",$boardId,$index);
+        $result = $conn->query($sql);
+        $sql= sprintf("UPDATE js_checklist_item SET sn=sn-1 WHERE sn>%d AND sn<%d AND checklist_id=%d ;",$index, $card_len, $boardId); 
+        $result = $conn->query($sql);
+        $conn->query("SET SQL_SAFE_UPDATES=1");
         if($result===True){
             debug_to_console("Succeeded to update id!");
         }

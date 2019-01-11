@@ -123,6 +123,53 @@ var tools = (function(){
             });
         },
         
+        deleteCard: function(board_index, boardid, index, card_len, delete_node)
+        {
+            $.post("./api/card_delete.php",
+                {
+                    boardid: boardid,
+                    index:index
+                    card_len: card_len
+                }
+            ).done(function(res){
+                res = tools.json_preprocess(res);
+                response = JSON.parse(res);
+                if(response['discription'].length > 0)
+                {
+                    alert(response['discription']);
+                    return;
+                }
+                board_array[board_index].cardDeleted();
+                delete_node.remove();
+            })
+             .fail(function(xhr, status, error) {
+                    alert(status + ":" + error);
+            });
+        },
+        
+        deleteBoard: function(boardid, index, board_len, delete_node)
+        {
+            $.post("./api/board_delete.php",
+                {
+                    boardid: boardid,
+                }
+            ).done(function(res){
+                res = tools.json_preprocess(res);
+                response = JSON.parse(res);
+                if(response['discription'].length > 0)
+                {
+                    alert(response['discription']);
+                    return;
+                }
+                for(i = board_index + 1; i < board_len, i++) board_array[i].move(-1);
+                delete board_array[board_index];
+                delete_node.remove();
+            })
+             .fail(function(xhr, status, error) {
+                    alert(status + ":" + error);
+            });
+        }
+        
         addBoard: function(id, title){
             
             var trello = document.getElementById("trello");
@@ -158,7 +205,7 @@ var tools = (function(){
             deleteButton.setAttribute("type", "button");
             deleteButton.setAttribute("class", "btn btn-danger");
             deleteButton.innerHTML = "Delete Checklist";
-            tools.addListener(deleteButton, "click", tools.deleteChecklist);
+            tools.addListener(deleteButton, "click", tools.board_delete);
             
             var emptyParagragh = document.createElement("p");
             
@@ -185,14 +232,18 @@ var tools = (function(){
             $("#title-modal").modal("show");
         },
         
-        deleteChecklist: function(event){
+        board_delete: function(event){
             var e = event || window.event;
-            e.target.parentElement.remove();
+            var board_index = Array.prototype.indexOf.call(e.target.parentElement.parentElement.children, e.target.parentElement);
+            tools.deleteBoard(board_array[board_index].id, board_index, board_array.length, e.target.parentElement);
         },
         
-        deleteCard: function(event){
+        card_delete: function(event){
             var e = event || window.event;
-            e.target.parentElement.remove();
+            var trello = document.getElementById("trello");
+            var card_index = Array.prototype.indexOf.call(e.target.parentElement.parentElement.children, e.target.parentElement);
+            var board_index = Array.prototype.indexOf.call(trello.children, e.target.parentElement.parentElement.parentElement);
+            tools.deleteCard(board_index, board_array[board_index].id, card_index, board_array[board_index].card_len, e.target.parentElement);
         },
         
         addEmptyCard: function(event){
@@ -228,7 +279,7 @@ var tools = (function(){
             deleteButton.setAttribute("type", "button");
             deleteButton.setAttribute("class", "btn btn-danger btn-sm");
             deleteButton.innerHTML = "Delete";
-            tools.addListener(deleteButton, "click", tools.deleteCard);
+            tools.addListener(deleteButton, "click", tools.card_delete);
             
             newCard.appendChild(check_input);
             newCard.appendChild(content_input);
@@ -398,6 +449,16 @@ var Board = (function(){
             
             this.insertCardAfter_ajax(this.card_len-1, "");
         },
+        
+        cardDeleted: function():
+        {
+            this.card_len--;
+        },
+        
+        move: function(i):
+        {
+            this.index -= i;
+        }
         
     }
     return Board;
