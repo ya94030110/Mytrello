@@ -417,7 +417,7 @@ var tools = (function(){
         {
             for(i = 0; i < data_array.length; i++)
             {
-                tools.createBoard(data_array[i].id, data_array[i].title);
+                tools.addBoard(data_array[i].id, data_array[i].title);
                 if(data_array[i].id > max_id) max_id = data_array[i].id;
                 board_array.push(new Board(data_array[i].title, data_array[i].id, data_array[i].data.length));
                 for(j = 0; j < data_array[i].data.length; j++)
