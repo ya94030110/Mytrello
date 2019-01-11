@@ -461,6 +461,7 @@ var Board = (function(){
         this.id = id;
         this.index = board_array.length;
         this.card_len = card_len;
+        console(card_len + " " + this.card_len);
     };
 
     Board.prototype = {
