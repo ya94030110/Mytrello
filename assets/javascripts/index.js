@@ -221,8 +221,8 @@ var tools = (function(){
         addBoard: function(id, title){
             
             var trello = document.getElementById("trello");
-            var newBoard = document.createElement("div");
-            newBoard.setAttribute("li", "check-board");
+            var newBoard = document.createElement("li");
+            newBoard.setAttribute("class", "check-board");
             
             var title_element = document.createElement("input");
             title_element.setAttribute("type", "text");
