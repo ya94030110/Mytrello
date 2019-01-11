@@ -10,7 +10,7 @@ if(isset($_POST['boardid'], $_POST['title'])) {  //checking the request
   $success = 0;
   $result = updateTitle(
     $boardid,
-    $content,
+    $title,
     $conn
   );
   if($result === True) {
