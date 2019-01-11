@@ -218,7 +218,7 @@ var tools = (function(){
         
         addBoard: function(id, title){
             
-            var trello = document.getElementById("trello");
+            var trello = document.getElementByClass("trello")[0];
             var newBoard = document.createElement("li");
             newBoard.setAttribute("class", "check-board");
             
@@ -261,13 +261,13 @@ var tools = (function(){
             newBoard.appendChild(emptyParagragh);
             trello.appendChild(newBoard);
             
-            $("trello").sortable({
+            $(".trello").sortable({
                 items: ".check-board"
             });
 
-            $("trello").disableSelection();
+            $(".trello").disableSelection();
 
-            $("trello").on("sortstop", function(event, ui) {   
+            $(".trello").on("sortstop", function(event, ui) {   
             });
             
         },
@@ -293,7 +293,7 @@ var tools = (function(){
         
         card_delete: function(event){
             var e = event || window.event;
-            var trello = document.getElementById("trello");
+            var trello = document.getElementByClass("trello")[0];
             var card_index = Array.prototype.indexOf.call(e.target.parentElement.parentElement.children, e.target.parentElement);
             var board_index = Array.prototype.indexOf.call(trello.children, e.target.parentElement.parentElement.parentElement);
             tools.deleteCard(board_index, board_array[board_index].getid(), card_index, board_array[board_index].card_len, e.target.parentElement);
@@ -372,7 +372,7 @@ var tools = (function(){
             var e = event || window.event;
             if(e.key == "Enter")
             {
-                var trello = document.getElementById("trello");
+                var trello = document.getElementByClass("trello")[0];
                     
                 var target_index = Array.prototype.indexOf.call(e.target.parentElement.parentElement.children, e.target.parentElement);
                 
@@ -395,7 +395,7 @@ var tools = (function(){
         content_update: function(event)
         {
             var e = event || window.event;
-            var trello = document.getElementById("trello");
+            var trello = document.getElementByClass("trello")[0];
             var card_index = Array.prototype.indexOf.call(e.target.parentElement.parentElement.children, e.target.parentElement);
             var board_index = Array.prototype.indexOf.call(trello.children, e.target.parentElement.parentElement.parentElement);
             var input_node = e.target.parentElement.children[1];
@@ -414,7 +414,7 @@ var tools = (function(){
         
         checkbox_check: function(event){
             var e = event || window.event;
-            var trello = document.getElementById("trello");
+            var trello = document.getElementByClass("trello")[0];
             var card_index = Array.prototype.indexOf.call(e.target.parentElement.parentElement.children, e.target.parentElement);
             var board_index = Array.prototype.indexOf.call(trello.children, e.target.parentElement.parentElement.parentElement);
 
