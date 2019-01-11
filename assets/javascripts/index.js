@@ -249,7 +249,6 @@ var tools = (function(){
             progress_bar.setAttribute("style", "width:" + 0 + "%;");
             var par = document.createElement("p");
             progress.appendChild(progress_bar);
-            progress.appendChild(par);
             
             var card_array = document.createElement("ul");
             card_array.setAttribute("class", "card-array");
@@ -271,6 +270,7 @@ var tools = (function(){
             newBoard.appendChild(title_element);
             newBoard.appendChild(saveButton);
             newBoard.appendChild(progress);
+            newBoard.appendChild(par);
             newBoard.appendChild(card_array);
             newBoard.appendChild(addButton);
             newBoard.appendChild(deleteButton);
@@ -557,7 +557,7 @@ var Board = (function(){
             this.all_job++;
             this.percent = Math.round(this.finish_job * 100 / this.all_job);
             document.getElementsByClassName("check-board")[this.index].children[2].children[0].setAttribute("style", "width:" + this.percent + "%;");
-            document.getElementsByClassName("check-board")[this.index].children[2].children[1].innerHTML = this.percent + "%";
+            document.getElementsByClassName("check-board")[this.index].children[3].innerHTML = this.percent + "%";
         },
         
         addEmptyCard: function(){
@@ -577,7 +577,7 @@ var Board = (function(){
             this.finish_job++;
             this.percent = Math.round(this.finish_job * 100 / this.all_job);
             document.getElementsByClassName("check-board")[this.index].children[2].children[0].setAttribute("style", "width:" + this.percent + "%;");
-            document.getElementsByClassName("check-board")[this.index].children[2].children[1].innerHTML = this.percent + "%";
+            document.getElementsByClassName("check-board")[this.index].children[3].innerHTML = this.percent + "%";
         },
         
         unfinish: function()
@@ -585,7 +585,7 @@ var Board = (function(){
             this.finish_job--;
             this.percent = Math.round(this.finish_job * 100 / this.all_job);
             document.getElementsByClassName("check-board")[this.index].children[2].children[0].setAttribute("style", "width:" + this.percent + "%;");
-            document.getElementsByClassName("check-board")[this.index].children[2].children[1].innerHTML = this.percent + "%";
+            document.getElementsByClassName("check-board")[this.index].children[3].innerHTML = this.percent + "%";
         }
         
     }
