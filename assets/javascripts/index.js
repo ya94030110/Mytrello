@@ -406,7 +406,7 @@ var tools = (function(){
         {
             for(i = 0; i < response.length; i++)
             {
-                if(response[i] == "{") return response.substring(i);
+                if(response[i] == "{" || response[i] == "[") return response.substring(i);
             }
         },
         
