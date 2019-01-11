@@ -141,7 +141,7 @@ function updateContent(
 function deleteBoard(
     $boardId,    //The boardid
     $index,      //index of the board
-    $board_len   //length of board array
+    $board_len,  //length of board array
     $conn
 ){
     if($conn->connect_error) {
@@ -172,7 +172,7 @@ function deleteBoard(
 function deleteCard(
     $boardId,    //boardid of the board where the card
     $index,      //index of the card in card array
-    $card_len    //length of card array
+    $card_len,   //length of card array
     $conn
 ){
     if($conn->connect_error) {
