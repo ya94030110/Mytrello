@@ -16,7 +16,7 @@ $(document).ready(function(){
             alert('sortstop parents');
             console.log('sortstop parents Event = ', event, '  ui = ', ui);
             console.log(ui.item);
-            if ($(ui.item).hasClass('checkboard')) {
+            if ($(ui.item).hasClass('check-board')) {
                 alert('it is Parent element that just moved. In here you can do the things specific to Parent sortable elements');
             } 
    

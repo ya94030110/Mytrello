@@ -19,15 +19,3 @@ input[type=checkbox]:checked + input{
   color : #999999;
   font-style:italic;
 }
-
-.check-board {
-  height: auto;
-  border: 1px solid red;
-  margin: 5px 0 5px 0;
-}
-
-.check-card {
-  height: 20px;
-  border: 1px dotted blue;
-  margin: 5px 0 5px 0;
-}
