@@ -9,10 +9,27 @@ $(document).ready(function(){
     $( "#trello" ).sortable();
     var add_checklist = document.getElementById("add-checklist");
     tools.addListener(add_checklist, "click", tools.addClicklist);
+    tools.getChecklist();
 })
 
 var tools = (function(){
     return{
+        
+        getChecklist: function()
+        {
+            $.post("./api/getData.php",
+                {
+                    
+                }
+            ).done(function(res){
+                res = tools.json_preprocess(res);
+                console.log(res);
+                response = JSON.parse(res);
+            })
+             .fail(function(xhr, status, error) {
+                    alert(status + ":" + error);
+            });
+        }
         
         insertCardAfter: function(boardid, index, content, card_len, board_index)
         {

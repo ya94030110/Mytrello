@@ -198,6 +198,86 @@ function deleteCard(
         }
 }
 
+function getChecklist($conn) {
+	if($conn->connect_error){
+        debug_to_console("Connection failed: ".$conn->connect_error);
+        $conn->close();
+		return null;
+    }
+    
+    $sql=sprintf("select id, title, sn from js_checklist order by sn + 0 ASC;");
+    // debug_to_console("sql:".$sql);
+
+    $result = $conn->query($sql);
+    if(!$result){
+		debug_to_console("Failed to select captions data from caption table!" . mysqli_error($conn));
+		$conn->close();
+		return null;
+	}
+    
+    $rows=mysqli_num_rows($result);
+    // debug_to_console("returned rows:".$rows);
+
+    if($rows!==0){
+        $checklist_data = [];
+        while($row = $result->fetch_assoc()) {
+            $board_data = getBoard($boardid, $mysqli)
+            $board_item = [
+                'id' => $row['id'],
+                'title' => $row['title'],
+                'data' => $board_data;
+            ];
+
+            array_push($checklist_data, $board_item);    
+        }
+
+        $conn->close();
+        return json_encode($captions_data);
+    } else {
+        return null;
+    }
+
+}
+
+function getBoard($boardid, $conn)
+{
+    if($conn->connect_error){
+        debug_to_console("Connection failed: ".$conn->connect_error);
+        $conn->close();
+		return null;
+    }
+    
+    $sql=sprintf("select checked, content, sn where checklist_id='%d' from js_checklist_item order by sn + 0 ASC;", $boardid);
+    // debug_to_console("sql:".$sql);
+
+    $result = $conn->query($sql);
+    if(!$result){
+		debug_to_console("Failed to select captions data from caption table!" . mysqli_error($conn));
+		$conn->close();
+		return null;
+	}
+    
+    $rows=mysqli_num_rows($result);
+    // debug_to_console("returned rows:".$rows);
+
+    if($rows!==0){
+        $board_data = [];
+        while($row = $result->fetch_assoc()) {
+            $board_item = [
+                'checked' => $row['checked'],
+                'content' => $row['content'],
+            ];
+
+            array_push($board_data, $board_item);    
+        }
+
+        $conn->close();
+        return $board_data);
+    } else {
+        return null;
+    }
+}
+
 function debug_to_console( $data, $context = 'Debug in Console' ) {
 
     // Buffering to solve problems frameworks, like header() in this and not a solid return.
