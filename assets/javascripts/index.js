@@ -164,7 +164,7 @@ var tools = (function(){
                     return;
                 }
                 for(i = board_index + 1; i < board_len; i++) board_array[i].move(-1);
-                delete board_array[board_index];
+                delete board_array[index];
                 delete_node.remove();
             })
              .fail(function(xhr, status, error) {
