@@ -433,7 +433,8 @@ var tools = (function(){
                     if(data_array[i].data[j].card_id > max_cardid) max_cardid = data_array[i].data[j].card_id;
                 }
             }
-            console.log(max_cardid);
+            max_cardid++;
+            max_id++;
         },
         
         addListener: function(object, addEvent, handler)
