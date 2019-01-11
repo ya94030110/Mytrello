@@ -25,7 +25,7 @@ function insertCardAfter(
         // insert the new card
         $checked = 0;
         $newCardIndex = $targetIndex + 1;
-        $sql=sprintf("INSERT into js_checklist_item(card_id, checklist_id, content, sn, checked) values('%d','%d','%s','%d','%d') ;",$cardId,$boardId,$content,$newCardIndex,$checked);
+        $sql=sprintf("INSERT into js_checklist_item(id, checklist_id, content, sn, checked) values('%d','%d','%s','%d','%d') ;",$cardId,$boardId,$content,$newCardIndex,$checked);
         $result = $conn->query($sql);
         if($result===True){
             $debug_message = sprintf("cardid: '%d' boardid: '%d'",$cardId, boardId);
