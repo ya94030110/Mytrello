@@ -19,3 +19,7 @@ input[type=checkbox]:checked + input{
   color : #999999;
   font-style:italic;
 }
+
+.progress {
+    width: 200px;
+}

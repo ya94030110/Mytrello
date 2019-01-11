@@ -539,7 +539,7 @@ var Board = (function(){
             if(checked == 1)
             {
                 newCard.children[0].checked = true;
-                this.finish_job();
+                this.finish();
             }
             
             $(".card-array").sortable({
