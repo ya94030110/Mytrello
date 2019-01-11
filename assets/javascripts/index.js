@@ -144,7 +144,7 @@ var tools = (function(){
         
         updateChecked: function(boardid, newchecked, index, edit_node)
         {
-            console.log(newchecked);
+            console.log(boardid + " " + newchecked + " " + index);
             $.post("./api/checked_update.php",
                 {
                     boardid: boardid,
