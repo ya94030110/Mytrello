@@ -33,7 +33,6 @@ var tools = (function(){
         
         insertCardAfter: function(boardid, index, content, card_len, board_index)
         {
-            console.log(card_len);
              $.post("./api/card_insert.php",
                 {
                     cardid: max_cardid,
@@ -426,7 +425,6 @@ var tools = (function(){
                 if(data_array[i].data == null) card_len = 0;
                 else card_len = data_array[i].data.length;
                 
-                console.log(i + " " + card_len);
                 board_array.push(new Board(data_array[i].title, data_array[i].id, card_len));
                 for(j = 0; j < card_len; j++)
                 {
@@ -492,7 +490,7 @@ var Board = (function(){
         },
         
         addEmptyCard: function(){
-            
+            console.log(this.card_len);
             this.insertCardAfter_ajax(this.card_len-1, "");
         },
         
