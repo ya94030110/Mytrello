@@ -413,9 +413,8 @@ var tools = (function(){
             }
         },
         
-        constructHTML: function(json)
+        constructHTML: function(data_array)
         {
-            var data_array = JSON.parse(json);
             for(i = 0; i < data_array.length; i++)
             {
                 tools.createBoard(data_array[i].id, data_array[i].title);
