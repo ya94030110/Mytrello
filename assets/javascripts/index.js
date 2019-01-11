@@ -168,7 +168,7 @@ var tools = (function(){
              .fail(function(xhr, status, error) {
                     alert(status + ":" + error);
             });
-        }
+        },
         
         addBoard: function(id, title){
             
