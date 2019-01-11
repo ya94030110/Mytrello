@@ -86,7 +86,6 @@ var tools = (function(){
         
         updateTitle: function(boardid, title, edit_node)
         {
-            console.log(title);
             $.post("./api/title_update.php",
                 {
                     boardid: boardid,
@@ -144,7 +143,6 @@ var tools = (function(){
         
         updateChecked: function(boardid, newchecked, index, edit_node)
         {
-            console.log(boardid + " " + newchecked + " " + index);
             $.post("./api/checked_update.php",
                 {
                     boardid: boardid,
@@ -297,7 +295,6 @@ var tools = (function(){
         addEmptyCard: function(event){
             var e = event || window.event;
             var index = Array.prototype.indexOf.call(e.target.parentElement.parentElement.children, e.target.parentElement);
-            console.log(index);
             board_array[index].addEmptyCard();
         },
 
@@ -390,7 +387,6 @@ var tools = (function(){
         
         content_update: function(event)
         {
-            console.log("click save button");
             var e = event || window.event;
             var trello = document.getElementById("trello");
             var card_index = Array.prototype.indexOf.call(e.target.parentElement.parentElement.children, e.target.parentElement);
@@ -520,7 +516,6 @@ var Board = (function(){
         },
         
         addEmptyCard: function(){
-            console.log(this.card_len);
             this.insertCardAfter_ajax(this.card_len-1, "");
         },
         
