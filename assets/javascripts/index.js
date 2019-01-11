@@ -95,7 +95,7 @@ var tools = (function(){
         
         updateContent: function(boardid, newcontent, index, edit_node)
         {
-            console.log(newcontent);
+            console.log(boardid + " " + newcontent + " " + index);
             $.post("./api/content_update.php",
                 {
                     boardid: boardid,
