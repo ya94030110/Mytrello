@@ -6,33 +6,7 @@ var edit_content = 0;
 
 
 $(document).ready(function(){
-    $("trello").sortable({
-        items: ".check-board"
-    });
 
-        $("trello").disableSelection();
-
-    $("trello").on("sortstop", function(event, ui) {
-            alert('sortstop parents');
-            console.log('sortstop parents Event = ', event, '  ui = ', ui);
-            console.log(ui.item);
-            if ($(ui.item).hasClass('check-board')) {
-                alert('it is Parent element that just moved. In here you can do the things specific to Parent sortable elements');
-            } 
-   
-    });
-
-
-    //children
-    $(".card-array").sortable({
-        items: ".check-card"
-    });
-    $(".card-array").disableSelection();
-    $(".card-array").on("sortstop", function(event, ui) {
-        alert('sortstop children');
-        console.log('sortstop children Event = ', event, '  ui = ', ui);
-        //do sort of childrens
-    });
     var add_checklist = document.getElementById("add-checklist");
     tools.addListener(add_checklist, "click", tools.addClicklist);
     tools.getChecklist();
@@ -248,7 +222,7 @@ var tools = (function(){
             
             var trello = document.getElementById("trello");
             var newBoard = document.createElement("div");
-            newBoard.setAttribute("class", "check-board");
+            newBoard.setAttribute("li", "check-board");
             
             var title_element = document.createElement("input");
             title_element.setAttribute("type", "text");
@@ -265,8 +239,7 @@ var tools = (function(){
             saveButton.style.display = "none";
             
             var card_array = document.createElement("div");
-            var id_string = "" + id;
-            card_array.setAttribute("class", "card-array");
+            card_array.setAttribute("ul", "card-array");
     
             var addButton = document.createElement("button");
             addButton.setAttribute("type", "button");
@@ -289,6 +262,15 @@ var tools = (function(){
             newBoard.appendChild(deleteButton);
             newBoard.appendChild(emptyParagragh);
             trello.appendChild(newBoard);
+            
+            $("trello").sortable({
+                items: ".check-board"
+            });
+
+            $("trello").disableSelection();
+
+            $("trello").on("sortstop", function(event, ui) {   
+            });
             
         },
         
@@ -326,7 +308,7 @@ var tools = (function(){
         },
 
         createCard: function(content){
-            var newCard = document.createElement("div");
+            var newCard = document.createElement("li");
             newCard.setAttribute("class", "check-card");
     
             var check_input = document.createElement("input");
@@ -539,6 +521,14 @@ var Board = (function(){
                 card_array.insertBefore(newCard,  card_array.children[index + 1]);
             else card_array.appendChild(newCard);
             if(checked == 1) newCard.children[0].checked = true;
+            
+            $(".card-array").sortable({
+                items: ".check-card"
+            });
+            $(".card-array").disableSelection();
+            $(".card-array").on("sortstop", function(event, ui) {
+            });
+            
             this.card_len++;
         },
         
