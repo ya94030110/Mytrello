@@ -414,14 +414,14 @@ var tools = (function(){
             var trello = document.getElementById("trello");
             var card_index = Array.prototype.indexOf.call(e.target.parentElement.parentElement.children, e.target.parentElement);
             var board_index = Array.prototype.indexOf.call(trello.children, e.target.parentElement.parentElement.parentElement);
-            console.log(e.target.checked);
+
             if(e.target.checked == true)
             {
-                tools.updateChecked(board_index, 1, card_index, e.target);
+                tools.updateChecked(board_array[board_index].id, 1, card_index, e.target);
             }
             else
             {
-                tools.updateChecked(board_index, 0, card_index, e.target);
+                tools.updateChecked(board_array[board_index].id, 0, card_index, e.target);
             }
         },
         
