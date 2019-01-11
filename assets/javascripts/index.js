@@ -6,7 +6,33 @@ var edit_content = 0;
 
 
 $(document).ready(function(){
-    $( "#trello" ).sortable();
+    $("trello").sortable({
+        items: ".checkboard"
+    });
+
+        $("trello").disableSelection();
+
+    $("trello").on("sortstop", function(event, ui) {
+            alert('sortstop parents');
+            console.log('sortstop parents Event = ', event, '  ui = ', ui);
+            console.log(ui.item);
+            if ($(ui.item).hasClass('checkboard')) {
+                alert('it is Parent element that just moved. In here you can do the things specific to Parent sortable elements');
+            } 
+   
+    });
+
+
+    //children
+    $(".card-array").sortable({
+        items: ".check_card"
+    });
+    $(".card-array").disableSelection();
+    $(".card-array").on("sortstop", function(event, ui) {
+        alert('sortstop children');
+        console.log('sortstop children Event = ', event, '  ui = ', ui);
+        //do sort of childrens
+    });
     var add_checklist = document.getElementById("add-checklist");
     tools.addListener(add_checklist, "click", tools.addClicklist);
     tools.getChecklist();
