@@ -158,8 +158,8 @@ var tools = (function(){
                     alert(response['discription']);
                     return;
                 }
-                if(newchecked == 0) edit_node.checked = true;
-                else edit_node.checked = false;
+                if(newchecked == 0) edit_node.checked = false;
+                else edit_node.checked = true;
             })
              .fail(function(xhr, status, error) {
                     alert(status + ":" + error);
@@ -304,7 +304,7 @@ var tools = (function(){
     
             var check_input = document.createElement("input");
             check_input.setAttribute("type", "checkbox");
-            tools.addListener(check_input, "click", tools.checkbox_check);
+            tools.addListener(check_input, "change", tools.checkbox_check);
             
             var content_input = document.createElement("input");
             content_input.setAttribute("type", "text");
