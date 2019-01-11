@@ -414,7 +414,7 @@ var tools = (function(){
             var trello = document.getElementById("trello");
             var card_index = Array.prototype.indexOf.call(e.target.parentElement.parentElement.children, e.target.parentElement);
             var board_index = Array.prototype.indexOf.call(trello.children, e.target.parentElement.parentElement.parentElement);
-            console.log(e.target.ckecked);
+            console.log(e.target);
             if(e.target.checked == true)
             {
                 tools.updateChecked(board_index, 1, card_index, e.target);
