@@ -204,7 +204,6 @@ function getChecklist($conn) {
         $conn->close();
         return null;
     }
-    
     $sql=sprintf("select id, title, sn from js_checklist order by sn + 0 ASC;");
     // debug_to_console("sql:".$sql);
 
