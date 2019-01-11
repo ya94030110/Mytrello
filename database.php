@@ -1,5 +1,4 @@
 <?php
-
 function connectOurtubeDatabase() {
     return new mysqli('40.121.221.31', 'nthuuser', '1qaz@WSX3edc', 'ourtube');
 }
@@ -198,7 +197,7 @@ function deleteCard(
         }
 }
 
-function getChecklist($conn) {
+function getChecklist($conn) {	
     if($conn->connect_error){
         debug_to_console("Connection failed: ".$conn->connect_error);
         $conn->close();
@@ -213,42 +212,39 @@ function getChecklist($conn) {
         $conn->close();
         return null;
     }
-    
     $rows=mysqli_num_rows($result);
     // debug_to_console("returned rows:".$rows);
-
     if($rows!==0){
         $checklist_data = [];
-        while($row = $result->fetch_assoc()) {
-            $board_data = getBoard($boardid, $mysqli);
+	while($row = $result->fetch_assoc()){
+            $board_data = getBoard($row['id']);
             $board_item = [
                 'id' => $row['id'],
                 'title' => $row['title'],
                 'data' => $board_data
-            ];
-
+	    ];
             array_push($checklist_data, $board_item);    
         }
 
         $conn->close();
-        return json_encode($captions_data);
+        return json_encode($checklist_data);
     } else {
         return null;
     }
 
 }
 
-function getBoard($boardid, $conn)
+function getBoard($boardid)
 {
+    $conn = connectOurtubeDatabase();
     if($conn->connect_error){
         debug_to_console("Connection failed: ".$conn->connect_error);
         $conn->close();
         return null;
     }
     
-    $sql=sprintf("select checked, content, sn where checklist_id='%d' from js_checklist_item order by sn + 0 ASC;", $boardid);
-    // debug_to_console("sql:".$sql);
-
+    $sql=sprintf("select content, sn, checked from js_checklist_item where checklist_id='%d' order by sn + 0 ASC;", $boardid);
+    // debug_to_console("sql:".$sqli);
     $result = $conn->query($sql);
     if(!$result){
         debug_to_console("Failed to select captions data from caption table!" . mysqli_error($conn));
@@ -258,9 +254,8 @@ function getBoard($boardid, $conn)
     
     $rows=mysqli_num_rows($result);
     // debug_to_console("returned rows:".$rows);
-
     if($rows!==0){
-        $board_data = [];
+	$board_data = [];
         while($row = $result->fetch_assoc()) {
             $board_item = [
                 'checked' => $row['checked'],
@@ -269,7 +264,7 @@ function getBoard($boardid, $conn)
 
             array_push($board_data, $board_item);    
         }
-
+	$conn->close();
         return $board_data;
     } else {
         return null;
