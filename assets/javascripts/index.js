@@ -454,8 +454,7 @@ var Board = (function(){
             this.card_len--;
         },
         
-        move: function(i):
-        {
+        move: function(i){
             this.index -= i;
         }
         
