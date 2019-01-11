@@ -220,7 +220,7 @@ function getChecklist($conn) {
     if($rows!==0){
         $checklist_data = [];
         while($row = $result->fetch_assoc()) {
-            $board_data = getBoard($boardid, $mysqli)
+            $board_data = getBoard($boardid, $mysqli);
             $board_item = [
                 'id' => $row['id'],
                 'title' => $row['title'],
