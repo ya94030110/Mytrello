@@ -554,7 +554,7 @@ var Board = (function(){
             this.card_len++;
             this.all_job++;
             this.percent = Math.round(this.finish_job * 100 / this.all_job);
-            document.getElementsByClassName("check-board")[this.index].children[2].setAttribute("style", "width:" + this.percent + "%;");
+            document.getElementsByClassName("check-board")[this.index].children[2].children[0].setAttribute("style", "width:" + this.percent + "%;");
         },
         
         addEmptyCard: function(){
@@ -573,14 +573,14 @@ var Board = (function(){
         {
             this.finish++;
             this.percent = Math.round(this.finish_job * 100 / this.all_job);
-            document.getElementsByClassName("check-board")[this.index].children[2].setAttribute("style", "width:" + this.percent + "%;");
+            document.getElementsByClassName("check-board")[this.index].children[2].children[0].setAttribute("style", "width:" + this.percent + "%;");
         },
         
         unfinish: function()
         {
             this.finish--;
             this.percent = Math.round(this.finish_job * 100 / this.all_job);
-            document.getElementsByClassName("check-board")[this.index].children[2].setAttribute("style", "width:" + this.percent + "%;");
+            document.getElementsByClassName("check-board")[this.index].children[2].children[0].setAttribute("style", "width:" + this.percent + "%;");
         }
         
     }
