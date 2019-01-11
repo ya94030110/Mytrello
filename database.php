@@ -228,7 +228,7 @@ function getChecklist($conn) {
         $conn->close();
         return null;
     }
-    $sql=sprintf("select id, title, sn from js_checklist order by sn + 0 ASC;");
+    $sql=sprintf("select id, title, sn from js_checklist order by sn ASC;");
     // debug_to_console("sql:".$sql);
 
     $result = $conn->query($sql);
@@ -268,7 +268,7 @@ function getBoard($boardid)
         return null;
     }
     
-    $sql=sprintf("select id, content, sn, checked from js_checklist_item where checklist_id='%d' order by sn + 0 ASC;", $boardid);
+    $sql=sprintf("select id, content, sn, checked from js_checklist_item where checklist_id='%d' order by sn ASC;", $boardid);
     // debug_to_console("sql:".$sqli);
     $result = $conn->query($sql);
     if(!$result){
