@@ -7,7 +7,7 @@ if(isset($_POST['boardid'], $_POST['index'], $_POST['card_len'])) {  //checking 
   // echo $_POST['data'];
   $boardid = $_POST['boardid'];
   $index = $_POST['index'];
-  $card_len = $_POST['card_len']
+  $card_len = $_POST['card_len'];
   $success = 0;
   $result = deleteCard(
     $boardid,
