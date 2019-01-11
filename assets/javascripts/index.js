@@ -185,6 +185,8 @@ var tools = (function(){
                     alert(response['discription']);
                     return;
                 }
+                if(newchecked == 0) edit_node.parentElement.children[1].disable = false;
+                else edit_node.parentElement.children[1].disable = true;
             })
              .fail(function(xhr, status, error) {
                     if(newchecked == 0) edit_node.checked = true;
