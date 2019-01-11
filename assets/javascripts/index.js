@@ -238,7 +238,7 @@ var tools = (function(){
             
             var card_array = document.createElement("ul");
             var id_string = "" + id;
-            card_array.setAttribute("class", "card-array");
+            card_array.setAttribute("class", "card-array ui-sortable");
             card_array.setAttribute("id", id_string);
             $( id_string ).sortable();
     
