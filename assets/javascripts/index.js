@@ -7,7 +7,7 @@ var edit_content = 0;
 
 $(document).ready(function(){
     $("trello").sortable({
-        items: ".checkboard"
+        items: ".check-board"
     });
 
         $("trello").disableSelection();
@@ -25,7 +25,7 @@ $(document).ready(function(){
 
     //children
     $(".card-array").sortable({
-        items: ".check_card"
+        items: ".check-card"
     });
     $(".card-array").disableSelection();
     $(".card-array").on("sortstop", function(event, ui) {

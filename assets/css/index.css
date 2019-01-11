@@ -20,17 +20,14 @@ input[type=checkbox]:checked + input{
   font-style:italic;
 }
 
-/*#sortable 
-{ 
-    list-style-type: none; 
-    margin: 0; padding: 0; 
-    width: 60%; 
+.check-board {
+  height: auto;
+  border: 1px solid red;
+  margin: 5px 0 5px 0;
 }
-#sortable li 
-{ 
-    margin: 0 3px 3px 3px; 
-    padding: 0.4em; 
-    padding-left: 1.5em; 
-    font-size: 1.4em; 
-    height: 18px; 
-}*/
+
+.check-card {
+  height: 20px;
+  border: 1px dotted blue;
+  margin: 5px 0 5px 0;
+}
