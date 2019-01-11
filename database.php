@@ -224,7 +224,7 @@ function getChecklist($conn) {
             $board_item = [
                 'id' => $row['id'],
                 'title' => $row['title'],
-                'data' => $board_data;
+                'data' => $board_data
             ];
 
             array_push($checklist_data, $board_item);    
@@ -264,7 +264,7 @@ function getBoard($boardid, $conn)
         while($row = $result->fetch_assoc()) {
             $board_item = [
                 'checked' => $row['checked'],
-                'content' => $row['content'],
+                'content' => $row['content']
             ];
 
             array_push($board_data, $board_item);    
