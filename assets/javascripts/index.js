@@ -33,6 +33,7 @@ var tools = (function(){
         
         insertCardAfter: function(boardid, index, content, card_len, board_index)
         {
+            console.log(card_len);
              $.post("./api/card_insert.php",
                 {
                     cardid: max_cardid,
