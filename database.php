@@ -243,7 +243,7 @@ function getBoard($boardid)
         return null;
     }
     
-    $sql=sprintf("select content, sn, checked from js_checklist_item where checklist_id='%d' order by sn + 0 ASC;", $boardid);
+    $sql=sprintf("select id, content, sn, checked from js_checklist_item where checklist_id='%d' order by sn + 0 ASC;", $boardid);
     // debug_to_console("sql:".$sqli);
     $result = $conn->query($sql);
     if(!$result){
@@ -258,6 +258,7 @@ function getBoard($boardid)
 	$board_data = [];
         while($row = $result->fetch_assoc()) {
             $board_item = [
+                'card_id' => $row['id'],
                 'checked' => $row['checked'],
                 'content' => $row['content']
             ];
