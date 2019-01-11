@@ -128,7 +128,7 @@ var tools = (function(){
             $.post("./api/card_delete.php",
                 {
                     boardid: boardid,
-                    index:index
+                    index:index,
                     card_len: card_len
                 }
             ).done(function(res){
