@@ -450,8 +450,7 @@ var Board = (function(){
             this.insertCardAfter_ajax(this.card_len-1, "");
         },
         
-        cardDeleted: function():
-        {
+        cardDeleted: function():{
             this.card_len--;
         },
         
