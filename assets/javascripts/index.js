@@ -219,7 +219,7 @@ var tools = (function(){
         addBoard: function(id, title){
             
             var trello = document.getElementById("trello");
-            var newBoard = document.createElement("li");
+            var newBoard = document.createElement("div");
             newBoard.setAttribute("class", "check-board");
             
             var title_element = document.createElement("input");
@@ -236,7 +236,7 @@ var tools = (function(){
             tools.addListener(saveButton, "mousedown", tools.title_update);
             saveButton.style.display = "none";
             
-            var card_array = document.createElement("ul");
+            var card_array = document.createElement("div");
             var id_string = "" + id;
             card_array.setAttribute("class", "card-array");
     
@@ -298,7 +298,7 @@ var tools = (function(){
         },
 
         createCard: function(content){
-            var newCard = document.createElement("li");
+            var newCard = document.createElement("div");
             newCard.setAttribute("class", "check-card");
     
             var check_input = document.createElement("input");
