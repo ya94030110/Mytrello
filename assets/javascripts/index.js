@@ -237,7 +237,7 @@ var tools = (function(){
         board_delete: function(event){
             var e = event || window.event;
             var board_index = Array.prototype.indexOf.call(e.target.parentElement.parentElement.children, e.target.parentElement);
-            tools.deleteBoard(board_array[board_index].id, board_index, board_array.length, e.target.parentElement);
+            tools.deleteBoard(board_array[board_index].getid(), board_index, board_array.length, e.target.parentElement);
         },
         
         card_delete: function(event){
@@ -245,7 +245,7 @@ var tools = (function(){
             var trello = document.getElementById("trello");
             var card_index = Array.prototype.indexOf.call(e.target.parentElement.parentElement.children, e.target.parentElement);
             var board_index = Array.prototype.indexOf.call(trello.children, e.target.parentElement.parentElement.parentElement);
-            tools.deleteCard(board_index, board_array[board_index].id, card_index, board_array[board_index].card_len, e.target.parentElement);
+            tools.deleteCard(board_index, board_array[board_index].getid(), card_index, board_array[board_index].card_len, e.target.parentElement);
         },
         
         addEmptyCard: function(event){
@@ -328,7 +328,7 @@ var tools = (function(){
                 if(target_index + 1 != e.target.parentElement.parentElement.children.length) return;
                 
                 var board_index = Array.prototype.indexOf.call(trello.children, e.target.parentElement.parentElement.parentElement);
-                tools.updateContent(board_array[board_index].id, e.target.value, target_index, e.target);
+                tools.updateContent(board_array[board_index].getid(), e.target.value, target_index, e.target);
                 board_array[board_index].addEmptyCard();
             }
         },
@@ -349,7 +349,7 @@ var tools = (function(){
             var card_index = Array.prototype.indexOf.call(e.target.parentElement.parentElement.children, e.target.parentElement);
             var board_index = Array.prototype.indexOf.call(trello.children, e.target.parentElement.parentElement.parentElement);
             var input_node = e.target.parentElement.children[1];
-            tools.updateContent(board_array[board_index].id, input_node.value, card_index, input_node);
+            tools.updateContent(board_array[board_index].getid(), input_node.value, card_index, input_node);
             e.target.style.display = "none";
         },
         
@@ -358,7 +358,7 @@ var tools = (function(){
             var e = event || window.event;
             var board_index = Array.prototype.indexOf.call(e.target.parentElement.parentElement.children, e.target.parentElement);
             var input_node = e.target.parentElement.children[0];
-            tools.updateTitle(board_array[board_index].id, input_node.value, input_node);
+            tools.updateTitle(board_array[board_index].getid(), input_node.value, input_node);
             e.target.style.display = "none";
         },
         
@@ -410,14 +410,12 @@ var tools = (function(){
 var Board = (function(){
     var title;
     var id;
-    var index;
     var card_len;
     
     //constructor
     var Board = function (board_title) {
         this.title = board_title;
         this.id = ++max_id;
-        this.index = board_array.length;
         this.card_len = 0;
         tools.createBoard(this.id, this.title, board_array.length);
     };
