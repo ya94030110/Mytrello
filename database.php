@@ -199,10 +199,10 @@ function deleteCard(
 }
 
 function getChecklist($conn) {
-	if($conn->connect_error){
+    if($conn->connect_error){
         debug_to_console("Connection failed: ".$conn->connect_error);
         $conn->close();
-		return null;
+        return null;
     }
     
     $sql=sprintf("select id, title, sn from js_checklist order by sn + 0 ASC;");
@@ -210,10 +210,10 @@ function getChecklist($conn) {
 
     $result = $conn->query($sql);
     if(!$result){
-		debug_to_console("Failed to select captions data from caption table!" . mysqli_error($conn));
-		$conn->close();
-		return null;
-	}
+        debug_to_console("Failed to select captions data from caption table!" . mysqli_error($conn));
+        $conn->close();
+        return null;
+    }
     
     $rows=mysqli_num_rows($result);
     // debug_to_console("returned rows:".$rows);
@@ -244,7 +244,7 @@ function getBoard($boardid, $conn)
     if($conn->connect_error){
         debug_to_console("Connection failed: ".$conn->connect_error);
         $conn->close();
-		return null;
+        return null;
     }
     
     $sql=sprintf("select checked, content, sn where checklist_id='%d' from js_checklist_item order by sn + 0 ASC;", $boardid);
@@ -252,10 +252,10 @@ function getBoard($boardid, $conn)
 
     $result = $conn->query($sql);
     if(!$result){
-		debug_to_console("Failed to select captions data from caption table!" . mysqli_error($conn));
-		$conn->close();
-		return null;
-	}
+        debug_to_console("Failed to select captions data from caption table!" . mysqli_error($conn));
+        $conn->close();
+        return null;
+    }
     
     $rows=mysqli_num_rows($result);
     // debug_to_console("returned rows:".$rows);
@@ -271,8 +271,7 @@ function getBoard($boardid, $conn)
             array_push($board_data, $board_item);    
         }
 
-        $conn->close();
-        return $board_data);
+        return $board_data;
     } else {
         return null;
     }
