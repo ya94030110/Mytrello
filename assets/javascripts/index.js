@@ -35,7 +35,6 @@ var tools = (function(){
         
         cardMove: function(boardid, start, stop, card_len)
         {
-            console.log("123");
             console.log(boardid + " " + start + " " + stop + " " + card_len);
             $.post("./api/card_move.php",
                 {
@@ -576,8 +575,11 @@ var Board = (function(){
                 },
                 stop: function(event, ui)
                 {
+                    var e = event || window.event;
+                    var trello = document.getElementsByClassName("trello")[0];
+                    var board_index = Array.prototype.indexOf.call(trello.children, e.target.parentElement);
                     stop_index = ui.item.index();
-                    tools.cardMove(this.id, start_index, stop_index, this.card_len);
+                    tools.cardMove(board_array[board_index].id, start_index, stop_index, board_array[board_index].card_len);
                 }
             });
             $(".card-array").disableSelection();
