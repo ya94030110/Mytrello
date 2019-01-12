@@ -557,7 +557,7 @@ var Board = (function(){
                 stop: function(event, ui)
                 {
                     stop_index = ui.item.index();
-                    console.log("move from " + start_index "to " + stop_index);
+                    console.log("move from " + start_index + "to " + stop_index);
                 }
             });
             $(".card-array").disableSelection();
