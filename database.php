@@ -105,13 +105,13 @@ function moveCard(
     }
     
     //move the card
-    $sql=sprintf("UPDATE js_checklist_item SET sn='%d' WHERE checklist_id='%d' AND sn='%d';", $start, $boardId, $card_len);
+    $sql=sprintf("UPDATE js_checklist_item SET sn='%d' WHERE checklist_id='%d' AND sn='%d';", $card_len, $boardId, $start);
     $conn->query($sql);
     
     $sql=sprintf("UPDATE js_checklist_item SET sn=sn-1 WHERE checklist_id='%d' AND sn>'%d' AND sn<='%d';", $boardId, $start, $stop);
     $conn->query($sql);
     
-    $sql=sprintf("UPDATE js_checklist_item SET sn='%d' WHERE checklist_id='%d' AND sn='%d';", $card_len, $boardId, $stop);
+    $sql=sprintf("UPDATE js_checklist_item SET sn='%d' WHERE checklist_id='%d' AND sn='%d';", $stop, $boardId, $card_len);
     $result = $conn->query($sql);
     
     if($result===True){
