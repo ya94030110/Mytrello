@@ -559,14 +559,16 @@ var Board = (function(){
                 {
                     var e = event || window.event;
                     var li_id = [];
-                    for(i = 0; i < e.target.children.length; i++) li_id.push(e.target.children[i].getAttribute("id"));
+                    for(i = 0; i < e.target.children.length; i++) 
+                        if(e.target.children[i].getAttribute("class") == "check-card") li_id.push(e.target.children[i].getAttribute("id"));
                     console.log(li_id);
                 },
                 stop: function(event, ui)
                 {
                     var e = event || window.event;
                     var li_id = [];
-                    for(i = 0; i < e.target.children.length; i++) li_id.push(e.target.children[i].getAttribute("id"));
+                    for(i = 0; i < e.target.children.length; i++)
+                        if(e.target.children[i].getAttribute("class") == "check-card") li_id.push(e.target.children[i].getAttribute("id"));
                     console.log(li_id);
                 }
             });
