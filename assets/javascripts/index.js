@@ -3,6 +3,8 @@ var board_array= [];
 var editted_title_element;
 var max_cardid = 0;
 var edit_content = 0;
+var start_index = 0;
+var stop_index = 0;
 
 
 $(document).ready(function(){
@@ -547,11 +549,21 @@ var Board = (function(){
             }
             
             $(".card-array").sortable({
-                items: ".check-card"
+                items: ".check-card",
+                start: function(event, ui)
+                {
+                    var e = event || window.event;
+                    console.log(e.target);
+                },
+                stop: function(event, ui)
+                {
+                    var e = event || window.event;
+                    console.log(e.target);
+                }
             });
             $(".card-array").disableSelection();
-            $(".card-array").on("sortstop", function(event, ui) {
-            });
+            //$(".card-array").on("sortstop", function(event, ui) {
+            //});
             
             this.card_len++;
             this.all_job++;
