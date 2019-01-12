@@ -558,18 +558,21 @@ var Board = (function(){
                 start: function(event, ui)
                 {
                     var e = event || window.event;
-                    var li_id = [];
+                    /*var li_id = [];
                     for(i = 0; i < e.target.children.length; i++) 
                         if(e.target.children[i].getAttribute("id") != null) li_id.push(e.target.children[i].getAttribute("id"));
-                    console.log(li_id);
+                    console.log(li_id);*/
+                    console.log(ui.item.index());
                 },
                 stop: function(event, ui)
                 {
                     var e = event || window.event;
-                    var li_id = [];
+                    /*var li_id = [];
                     for(i = 0; i < e.target.children.length; i++)
                         if(e.target.children[i].getAttribute("id") != null) li_id.push(e.target.children[i].getAttribute("id"));
-                    console.log(li_id);
+                    console.log(li_id);*/
+                    console.log(ui.item.index());
+                    
                 }
             });
             $(".card-array").disableSelection();
