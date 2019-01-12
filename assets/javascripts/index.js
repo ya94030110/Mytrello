@@ -35,7 +35,6 @@ var tools = (function(){
         
         cardMove: function(boardid, start, stop, card_len)
         {
-            console.log(boardid + " " + start + " " + stop + " " + card_len);
             $.post("./api/card_move.php",
                 {
                     boardid: boardid,
