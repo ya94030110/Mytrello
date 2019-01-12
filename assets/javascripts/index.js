@@ -35,6 +35,24 @@ var tools = (function(){
         
         cardMove: function(boardid, start, stop, card_len)
         {
+            $.post("./api/card_move.php",
+                {
+                    boardid: boardid,
+                    start: start,
+                    stop: stop,
+                    card_len: card_len
+                }
+            
+            ).done(function(res){
+            })
+             .fail(function(xhr, status, error) {
+                    alert(status + ":" + error);
+            });
+            
+        },
+        
+        boardMove: function(start, stop, board_len)
+        {
             $.post("./api/board_move.php",
                 {
                     start: start,
@@ -51,23 +69,6 @@ var tools = (function(){
                 var tmp_board = board_array[start];
                 board_array.splice(start, 1);
                 board_array.insert(stop, tmp_board);
-            })
-             .fail(function(xhr, status, error) {
-                    alert(status + ":" + error);
-            });
-        },
-        
-        boardMove: function(start, stop, board_len)
-        {
-            $.post("./api/card_move.php",
-                {
-                    boardid: boardid,
-                    start: start,
-                    stop: stop,
-                    card_len: card_len
-                }
-            
-            ).done(function(res){
             })
              .fail(function(xhr, status, error) {
                     alert(status + ":" + error);
