@@ -37,7 +37,7 @@ var tools = (function(){
         {
             $.post("./api/card_move.php",
                 {
-                    board_id: boardid,
+                    boardid: boardid,
                     start: start,
                     stop: stop,
                     card_len: card_len
