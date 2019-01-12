@@ -33,6 +33,19 @@ var tools = (function(){
             });
         },
         
+        cardMove: function(boardid, start, stop, card_len)
+        {
+            $.post("./api/card_move.php",
+                {
+                    board_id: board_id,
+                    start: start,
+                    stop: stop,
+                    card_len: card_len
+                }
+            
+            );
+        },
+        
         insertCardAfter: function(boardid, index, content, card_len, board_index)
         {
              $.post("./api/card_insert.php",
@@ -557,7 +570,7 @@ var Board = (function(){
                 stop: function(event, ui)
                 {
                     stop_index = ui.item.index();
-                    console.log("move from " + start_index + "to " + stop_index);
+                    cardMove(this.id, start_index, stop_index, this.card_len);
                 }
             });
             $(".card-array").disableSelection();

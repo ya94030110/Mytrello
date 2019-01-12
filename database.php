@@ -88,6 +88,40 @@ function createBoard(
     
 }
 
+function moveCard(
+    $boardId,   //The boardid
+    $start,     //start index
+    $stop,      //stop index
+    $card_len,  //length of card array
+    $conn
+){
+    if($conn->connect_error) {
+        
+        debug_to_console("Connection failed: " . $conn->connect_error);
+        if(!is_null($conn)){
+            mysqli_close($conn);
+        }
+        return;
+    }
+    
+    //move the card
+    $sql=sprintf("UPDATE js_checklist_item SET sn='%d' WHERE checklist_id='%d' AND sn='%d';", $start, $boardId, $card_len);
+    $conn->query($sql);
+    
+    $sql=sprintf("UPDATE js_checklist_item SET sn=sn-1 WHERE checklist_id='%d' AND sn>'%d' AND sn<='%d';", $boardId, $start, $stop);
+    $conn->query($sql);
+    
+    $sql=sprintf("UPDATE js_checklist_item SET sn='%d' WHERE checklist_id='%d' AND sn='%d';", $card_len, $boardId, $stop);
+    $result = $conn->query($sql);
+    
+    if($result===True){
+            debug_to_console("Succeeded to move card!");
+        }
+        else{
+            debug_to_console("Faile to move card!");
+        }
+}
+
 function updateTitle(
     $boardId,    //The boardid
     $title,    //new title
