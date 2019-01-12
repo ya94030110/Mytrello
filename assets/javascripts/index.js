@@ -542,7 +542,7 @@ var Board = (function(){
         insertCardAfter: function(index, content, checked)
         {
             var card_array = document.getElementsByClassName("card-array")[this.index];
-            var newCard = tools.createCard(content, card_len, this.card_insert);
+            var newCard = tools.createCard(content, this.card_insert);
             
             if(index + 1 != this.card_len)
                 card_array.insertBefore(newCard,  card_array.children[index + 1]);
