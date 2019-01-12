@@ -35,6 +35,30 @@ var tools = (function(){
         
         cardMove: function(boardid, start, stop, card_len)
         {
+            $.post("./api/board_move.php",
+                {
+                    start: start,
+                    stop: stop,
+                    board_len: board_len
+                }
+            
+            ).done(function(res){
+                if(response['discription'].length > 0)
+                {
+                    alert(response['discription']);
+                    return;
+                }
+                var tmp_board = board_array[start];
+                board_array.splice(start, 1);
+                board_array.insert(stop, tmp_board);
+            })
+             .fail(function(xhr, status, error) {
+                    alert(status + ":" + error);
+            });
+        },
+        
+        boardMove: function(start, stop, board_len)
+        {
             $.post("./api/card_move.php",
                 {
                     boardid: boardid,
@@ -44,12 +68,12 @@ var tools = (function(){
                 }
             
             ).done(function(res){
-                console.log(res);
             })
              .fail(function(xhr, status, error) {
                     alert(status + ":" + error);
             });
         },
+            
         
         insertCardAfter: function(boardid, index, content, card_len, board_index)
         {
@@ -298,13 +322,22 @@ var tools = (function(){
             trello.appendChild(newBoard);
             
             $(".trello").sortable({
-                items: ".check-board"
+                items: ".check-board",
+                start: function(event, ui)
+                {
+                    start_index = ui.item.index();
+                },
+                stop: function(event, ui)
+                {
+                    var e = event || window.event;
+                    var trello = document.getElementsByClassName("trello")[0];
+                    stop_index = ui.item.index();
+                    tools.boardMove(start_index, stop_index, board_array.length);
+                }
             });
 
             $(".trello").disableSelection();
 
-            $(".trello").on("sortstop", function(event, ui) {   
-            });
             
         },
         
@@ -582,8 +615,6 @@ var Board = (function(){
                 }
             });
             $(".card-array").disableSelection();
-            //$(".card-array").on("sortstop", function(event, ui) {
-            //});
             
             this.card_len++;
             this.all_job++;

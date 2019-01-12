@@ -122,6 +122,39 @@ function moveCard(
         }
 }
 
+function moveBoard(
+    $start,     //start index
+    $stop,      //stop index
+    $board_len,  //length of board array
+    $conn
+){
+    if($conn->connect_error) {
+        
+        debug_to_console("Connection failed: " . $conn->connect_error);
+        if(!is_null($conn)){
+            mysqli_close($conn);
+        }
+        return;
+    }
+    
+    //move the card
+    $sql=sprintf("UPDATE js_checklist SET sn='%d' WHERE sn='%d';", $card_len, $start);
+    $conn->query($sql);
+    
+    $sql=sprintf("UPDATE js_checklist SET sn=sn-1 WHERE sn>'%d' AND sn<='%d';", $start, $stop);
+    $conn->query($sql);
+    
+    $sql=sprintf("UPDATE js_checklist SET sn='%d' WHERE sn='%d';", $stop, $card_len);
+    $result = $conn->query($sql);
+    
+    if($result===True){
+            debug_to_console("Succeeded to move board!");
+        }
+        else{
+            debug_to_console("Faile to move board!");
+        }
+}
+
 function updateTitle(
     $boardId,    //The boardid
     $title,    //new title
