@@ -77,7 +77,7 @@ function createBoard(
         return;
     }
         // insert the new board
-        $sql=sprintf("INSERT into js_checklist(id, title, sn) values('%d',%s,'%d') ;",$boardId,$title,$finalIndex);
+        $sql=sprintf("INSERT into js_checklist(id, title, sn) values('%d','%s','%d') ;",$boardId,$title,$finalIndex);
         $result = $conn->query($sql);
         if($result===True){
             debug_to_console("Succeeded to insert new board!");
