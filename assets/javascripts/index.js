@@ -570,7 +570,7 @@ var Board = (function(){
                 stop: function(event, ui)
                 {
                     stop_index = ui.item.index();
-                    cardMove(this.id, start_index, stop_index, this.card_len);
+                    tools.cardMove(this.id, start_index, stop_index, this.card_len);
                 }
             });
             $(".card-array").disableSelection();
