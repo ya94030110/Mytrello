@@ -326,6 +326,7 @@ var tools = (function(){
             
             $(".trello").sortable({
                 items: ".check-board",
+                axis: 'y',
                 start: function(event, ui)
                 {
                     start_index = ui.item.index();
@@ -605,6 +606,7 @@ var Board = (function(){
             
             $(".card-array").sortable({
                 items: ".check-card",
+                axis: 'y',
                 start: function(event, ui)
                 {
                     start_index = ui.item.index();
