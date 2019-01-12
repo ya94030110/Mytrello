@@ -44,7 +44,7 @@ var tools = (function(){
                 }
             
             ).done(function(res){
-              
+                console.log(res);
             })
              .fail(function(xhr, status, error) {
                     alert(status + ":" + error);
