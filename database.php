@@ -105,21 +105,43 @@ function moveCard(
     }
     
     //move the card
-    $sql=sprintf("UPDATE js_checklist_item SET sn='%d' WHERE checklist_id='%d' AND sn='%d';", $card_len, $boardId, $start);
-    $conn->query($sql);
+    if($start < $stop)
+    {
+        $sql=sprintf("UPDATE js_checklist_item SET sn='%d' WHERE checklist_id='%d' AND sn='%d';", $card_len, $boardId, $start);
+        $conn->query($sql);
     
-    $sql=sprintf("UPDATE js_checklist_item SET sn=sn-1 WHERE checklist_id='%d' AND sn>'%d' AND sn<='%d';", $boardId, $start, $stop);
-    $conn->query($sql);
+        $sql=sprintf("UPDATE js_checklist_item SET sn=sn-1 WHERE checklist_id='%d' AND sn>'%d' AND sn<='%d';", $boardId, $start, $stop);
+        $conn->query($sql);
     
-    $sql=sprintf("UPDATE js_checklist_item SET sn='%d' WHERE checklist_id='%d' AND sn='%d';", $stop, $boardId, $card_len);
-    $result = $conn->query($sql);
+        $sql=sprintf("UPDATE js_checklist_item SET sn='%d' WHERE checklist_id='%d' AND sn='%d';", $stop, $boardId, $card_len);
+        $result = $conn->query($sql);
     
-    if($result===True){
+        if($result===True){
             debug_to_console("Succeeded to move card!");
         }
         else{
             debug_to_console("Faile to move card!");
         }
+    }
+    
+    else
+    {
+        $sql=sprintf("UPDATE js_checklist_item SET sn='%d' WHERE checklist_id='%d' AND sn='%d';", $card_len, $boardId, $start);
+        $conn->query($sql);
+    
+        $sql=sprintf("UPDATE js_checklist_item SET sn=sn+1 WHERE checklist_id='%d' AND sn>='%d' AND sn<'%d';", $boardId, $stop, $start);
+        $conn->query($sql);
+    
+        $sql=sprintf("UPDATE js_checklist_item SET sn='%d' WHERE checklist_id='%d' AND sn='%d';", $stop, $boardId, $card_len);
+        $result = $conn->query($sql);
+    
+        if($result===True){
+            debug_to_console("Succeeded to move card!");
+        }
+        else{
+            debug_to_console("Faile to move card!");
+        }
+    }
 }
 
 function moveBoard(
@@ -137,22 +159,43 @@ function moveBoard(
         return;
     }
     
-    //move the card
-    $sql=sprintf("UPDATE js_checklist SET sn='%d' WHERE sn='%d';", $card_len, $start);
-    $conn->query($sql);
+    //move the board
+    if($start < $stop)
+    {
+        $sql=sprintf("UPDATE js_checklist SET sn='%d' WHERE sn='%d';", $board_len, $start);
+        $conn->query($sql);
     
-    $sql=sprintf("UPDATE js_checklist SET sn=sn-1 WHERE sn>'%d' AND sn<='%d';", $start, $stop);
-    $conn->query($sql);
+        $sql=sprintf("UPDATE js_checklist SET sn=sn-1 WHERE sn>'%d' AND sn<='%d';", $start, $stop);
+        $conn->query($sql);
     
-    $sql=sprintf("UPDATE js_checklist SET sn='%d' WHERE sn='%d';", $stop, $card_len);
-    $result = $conn->query($sql);
+        $sql=sprintf("UPDATE js_checklist SET sn='%d' WHERE sn='%d';", $stop, $board_len);
+        $result = $conn->query($sql);
     
-    if($result===True){
-            debug_to_console("Succeeded to move board!");
+        if($result===True){
+                debug_to_console("Succeeded to move board!");
         }
         else{
             debug_to_console("Faile to move board!");
         }
+    }
+    else
+    {
+        $sql=sprintf("UPDATE js_checklist SET sn='%d' WHERE sn='%d';", $board_len, $start);
+        $conn->query($sql);
+    
+        $sql=sprintf("UPDATE js_checklist SET sn=sn+1 WHERE sn>='%d' AND sn<'%d';", $stop, $start);
+        $conn->query($sql);
+    
+        $sql=sprintf("UPDATE js_checklist SET sn='%d' WHERE sn='%d';", $stop, $board_len);
+        $result = $conn->query($sql);
+    
+        if($result===True){
+                debug_to_console("Succeeded to move board!");
+        }
+        else{
+            debug_to_console("Faile to move board!");
+        }
+    }
 }
 
 function updateTitle(
