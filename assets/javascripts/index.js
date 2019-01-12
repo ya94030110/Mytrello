@@ -5,6 +5,7 @@ var max_cardid = 0;
 var edit_content = 0;
 var start_index = 0;
 var stop_index = 0;
+var board_insert = 0;
 
 
 $(document).ready(function(){
@@ -77,7 +78,7 @@ var tools = (function(){
                     return;
                 }
                 board_array.push(new Board(title, boardid, 0));
-                tools.addBoard(boardid, title);
+                tools.addBoard(boardid, title, id);
                 max_id++;
             })
              .fail(function(xhr, status, error) {
@@ -225,6 +226,7 @@ var tools = (function(){
             var trello = document.getElementsByClassName("trello")[0];
             var newBoard = document.createElement("li");
             newBoard.setAttribute("class", "check-board");
+            newBoard.setAttribute("id", board_insert++);
             
             var title_element = document.createElement("input");
             title_element.setAttribute("type", "text");
@@ -323,9 +325,10 @@ var tools = (function(){
             board_array[index].addEmptyCard();
         },
 
-        createCard: function(content){
+        createCard: function(content, id){
             var newCard = document.createElement("li");
             newCard.setAttribute("class", "check-card");
+            newCard.setAttribute("id", id);
     
             var check_input = document.createElement("input");
             check_input.setAttribute("type", "checkbox");
@@ -508,6 +511,7 @@ var Board = (function(){
     var all_job;
     var finish_job;
     var percent;
+    var card_insert;
     
     //constructor
     var Board = function (board_title, id, card_len) {
@@ -518,6 +522,7 @@ var Board = (function(){
         this.all_job = card_len;
         this.finish_job = 0;
         this.percent = 0;
+        this.card_insert = 0;
     };
 
     Board.prototype = {
@@ -537,7 +542,7 @@ var Board = (function(){
         insertCardAfter: function(index, content, checked)
         {
             var card_array = document.getElementsByClassName("card-array")[this.index];
-            var newCard = tools.createCard(content);
+            var newCard = tools.createCard(content, card_len, this.card_insert);
             
             if(index + 1 != this.card_len)
                 card_array.insertBefore(newCard,  card_array.children[index + 1]);
@@ -553,18 +558,22 @@ var Board = (function(){
                 start: function(event, ui)
                 {
                     var e = event || window.event;
-                    console.log(e.target);
+                    var li_id = [];
+                    for(i = 0; i < e.target.children.length; i++) li_id.push(e.target.children[i].getAttribute("id"));
+                    console.log(li_id);
                 },
                 stop: function(event, ui)
                 {
                     var e = event || window.event;
-                    console.log(e.target);
+                    var li_id = [];
+                    for(i = 0; i < e.target.children.length; i++) li_id.push(e.target.children[i].getAttribute("id"));
+                    console.log(li_id);
                 }
             });
             $(".card-array").disableSelection();
             //$(".card-array").on("sortstop", function(event, ui) {
             //});
-            
+            this.card_insert++;
             this.card_len++;
             this.all_job++;
             this.percent = Math.round(this.finish_job * 100 / this.all_job);
