@@ -53,7 +53,6 @@ var tools = (function(){
         
         boardMove: function(start, stop, board_len)
         {
-            console.log(start + " " + stop, + " " + board_len);
             $.post("./api/board_move.php",
                 {
                     start: start,
@@ -62,7 +61,6 @@ var tools = (function(){
                 }
             
             ).done(function(res){
-                console.log(res);
                 res = tools.json_preprocess(res);
                 response = JSON.parse(res);
                 if(response['discription'].length > 0)
@@ -412,7 +410,7 @@ var tools = (function(){
             newCard.appendChild(content_input);
             newCard.appendChild(deleteButton);
             newCard.appendChild(saveButton);
-           
+            
             return newCard;
         },
         
@@ -598,6 +596,7 @@ var Board = (function(){
             if(index + 1 != this.card_len)
                 card_array.insertBefore(newCard,  card_array.children[index + 1]);
             else card_array.appendChild(newCard);
+            newCard.children[1].focus();
             if(checked == 1)
             {
                 newCard.children[0].checked = true;
