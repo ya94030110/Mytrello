@@ -61,6 +61,9 @@ var tools = (function(){
                 }
             
             ).done(function(res){
+                console.log(res);
+                res = tools.json_preprocess(res);
+                response = JSON.parse(res);
                 if(response['discription'].length > 0)
                 {
                     alert(response['discription']);
