@@ -53,6 +53,7 @@ var tools = (function(){
         
         boardMove: function(start, stop, board_len)
         {
+            console.log(start + " " + stop, + " " + board_len);
             $.post("./api/board_move.php",
                 {
                     start: start,
@@ -71,7 +72,7 @@ var tools = (function(){
                 }
                 var tmp_board = board_array[start];
                 board_array.splice(start, 1);
-                board_array.insert(stop, tmp_board);
+                board_array.splice(stop, 0, tmp_board);
             })
              .fail(function(xhr, status, error) {
                     alert(status + ":" + error);
