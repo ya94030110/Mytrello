@@ -43,7 +43,12 @@ var tools = (function(){
                     card_len: card_len
                 }
             
-            );
+            ).done(function(res){
+              
+            })
+             .fail(function(xhr, status, error) {
+                    alert(status + ":" + error);
+            });
         },
         
         insertCardAfter: function(boardid, index, content, card_len, board_index)
